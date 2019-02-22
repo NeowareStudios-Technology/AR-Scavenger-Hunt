@@ -51,20 +51,25 @@ using System.Collections.Generic;
 				Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
 				// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
 				//PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
-				
-				InstantiatePlayer();
-			
-				
-				
+
+				StartCoroutine("DelayedPlayerInstantiate");
+							
 			}
 		}
+
+		public IEnumerator DelayedPlayerInstantiate()
+		{
+			yield return new WaitForSeconds(1);
+			InstantiatePlayer();
+		}
+
 		private void InstantiatePlayer(){
 				GameObject GO = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,0f,0f), Quaternion.identity, 0);
 				
 				//GO.GetComponent<RectTransform>().SetParent(PlayerUIParent);
 				//GO.GetComponent<RectTransform>().localScale = new Vector3(1.0F, 1.0f, 1.0f);
 				//GO.GetComponent<Text>().text = PhotonNetwork.LocalPlayer.NickName;
-				
+				/* 
 				if (players[0] == null)
 				{
 					GO.GetComponent<PlayerManager>().playerIndex = 0;
@@ -92,12 +97,40 @@ using System.Collections.Generic;
 					GO.name = "player4";
 					players[3] = GO;
 					playerInfo[3].SetActive(true);
-				}
+				}*/
 		}
 
-		void Update(){
-				GameObject newPlayer = GameObject.Find("Player(Clone)");
+		void Update(){	
+				//check fo players in room as local game manager accordingly
+				GameObject newPlayer = GameObject.Find("player1");
+				if(newPlayer != null)
+				{
+					players[0] = newPlayer;
+					playerInfo[0].SetActive(true);
+				}
 
+				newPlayer = GameObject.Find("player2");
+				if(newPlayer != null)
+				{
+					players[1] = newPlayer;
+					playerInfo[1].SetActive(true);
+				}
+
+				newPlayer = GameObject.Find("player3");
+				if(newPlayer != null)
+				{
+					players[2] = newPlayer;
+					playerInfo[2].SetActive(true);
+				}
+
+				newPlayer = GameObject.Find("player4");
+				if(newPlayer != null)
+				{
+					players[3] = newPlayer;
+					playerInfo[3].SetActive(true);
+				}
+
+				newPlayer = GameObject.Find("Player(Clone)");
 				if (newPlayer != null)
 				{
 					if (players[0] == null)
