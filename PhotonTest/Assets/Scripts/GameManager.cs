@@ -16,7 +16,9 @@ using System.Collections.Generic;
 		public GameObject playerUIPrefab;
 		public Transform PlayerUIParent;
 
-		public GameObject[] players = new GameObject[4];
+		public GameObject[] players = new GameObject[] {null, null, null, null};
+
+
 		
 		public GameObject[] playerInfo = new GameObject[4];
 
@@ -94,11 +96,39 @@ using System.Collections.Generic;
 		}
 
 		void Update(){
-			/* 
-			for (int i = 0; i< players.Count; i++){
-				players[i].GetComponent<Transform>().GetChild(1).GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName;
-			}
-			*/
+				GameObject newPlayer = GameObject.Find("Player(Clone)");
+
+				if (newPlayer != null)
+				{
+					if (players[0] == null)
+						{
+							newPlayer.GetComponent<PlayerManager>().playerIndex = 0;
+							newPlayer.name = "player1";
+							players[0] = newPlayer;
+							playerInfo[0].SetActive(true);
+						}
+						else if (players[1] == null)
+						{
+							newPlayer.GetComponent<PlayerManager>().playerIndex = 1;
+							newPlayer.name = "player2";
+							players[1] = newPlayer;
+							playerInfo[1].SetActive(true);
+						}
+						else if (players[2] == null)
+						{
+							newPlayer.GetComponent<PlayerManager>().playerIndex = 2;
+							newPlayer.name = "player3";
+							players[2] = newPlayer;
+							playerInfo[2].SetActive(true);
+						}
+						else if (players[3] == null)
+						{
+							newPlayer.GetComponent<PlayerManager>().playerIndex = 3;
+							newPlayer.name = "player4";
+							players[3] = newPlayer;
+							playerInfo[3].SetActive(true);
+						}
+				}
 
 		}
         #region Public Methods
@@ -116,6 +146,7 @@ using System.Collections.Generic;
 
 		public override void OnPlayerEnteredRoom(Player other)
 		{
+
 
 			Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
  

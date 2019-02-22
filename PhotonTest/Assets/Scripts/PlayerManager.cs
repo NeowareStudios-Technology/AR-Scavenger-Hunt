@@ -112,6 +112,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
             //gm.numClicked++;
             localScore++;
             Debug.Log("<b> Num clicked = </b>" + this.localScore + " By: " + this.gameObject.name);
+            Debug.Log("player index is: " + playerIndex);
             gm.playerInfo[playerIndex].GetComponent<Text>().text = PhotonNetwork.LocalPlayer.NickName + " has "+localScore+" points";
         }
         
