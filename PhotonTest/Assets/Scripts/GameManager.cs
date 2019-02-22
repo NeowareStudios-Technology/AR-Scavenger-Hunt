@@ -16,7 +16,9 @@ using System.Collections.Generic;
 		public GameObject playerUIPrefab;
 		public Transform PlayerUIParent;
 
-		public List<GameObject> players = new List<GameObject>();
+		public GameObject[] players = new GameObject[]{null, null, null, null};
+		
+		public GameObject[] playerInfo = new GameObject[4];
 
 		public int player1score = 0;
 		public int player2score = 0;
@@ -60,7 +62,35 @@ using System.Collections.Generic;
 				//GO.GetComponent<RectTransform>().SetParent(PlayerUIParent);
 				//GO.GetComponent<RectTransform>().localScale = new Vector3(1.0F, 1.0f, 1.0f);
 				//GO.GetComponent<Text>().text = PhotonNetwork.LocalPlayer.NickName;
-				players.Add(GO);
+				
+				if (players[0] == null)
+				{
+					GO.GetComponent<PlayerManager>().playerIndex = 0;
+					GO.name = "player1";
+					players[0] = GO;
+					playerInfo[0].SetActive(true);
+				}
+				else if (players[1] == null)
+				{
+					GO.GetComponent<PlayerManager>().playerIndex = 1;
+					GO.name = "player2";
+					players[1] = GO;
+					playerInfo[1].SetActive(true);
+				}
+				else if (players[2] == null)
+				{
+					GO.GetComponent<PlayerManager>().playerIndex = 2;
+					GO.name = "player3";
+					players[2] = GO;
+					playerInfo[2].SetActive(true);
+				}
+				else if (players[3] == null)
+				{
+					GO.GetComponent<PlayerManager>().playerIndex = 3;
+					GO.name = "player4";
+					players[3] = GO;
+					playerInfo[3].SetActive(true);
+				}
 		}
 
 		void Update(){
@@ -106,6 +136,27 @@ using System.Collections.Generic;
 		{
 			Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
 
+			if ((GameObject.Find("player1") == null)&&(players[0] != null))
+			{
+				players[0] = null;
+				playerInfo[0].SetActive(false);
+			}
+			if ((GameObject.Find("player2") == null)&&(players[1] != null))
+			{
+				players[1] = null;
+				playerInfo[1].SetActive(false);
+			}
+			if ((GameObject.Find("player3") == null)&&(players[2] != null))
+			{
+				players[2] = null;
+				playerInfo[2].SetActive(false);
+			}
+			if ((GameObject.Find("player4") == null)&&(players[3] != null))
+			{
+				players[3] = null;
+				playerInfo[3].SetActive(false);
+			}
+
 
 			if (PhotonNetwork.IsMasterClient)
 			{
@@ -114,6 +165,8 @@ using System.Collections.Generic;
 
 				//LoadArena();
 			}
+
+
 		}
 
 

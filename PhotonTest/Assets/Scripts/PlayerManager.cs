@@ -10,6 +10,8 @@ using Photon.Realtime;
 public class PlayerManager : MonoBehaviourPunCallbacks {
     
     public int localScore = 0;
+
+    public int playerIndex;
     
     #region  Public Fields
 
