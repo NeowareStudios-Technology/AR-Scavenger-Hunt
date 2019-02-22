@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localScore: 0
+  playerIndex: 0
   PlayerUiPrefab: {fileID: 0}
   Health: 0
   beams: {fileID: 96}

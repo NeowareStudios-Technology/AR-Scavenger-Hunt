@@ -16,7 +16,7 @@ using System.Collections.Generic;
 		public GameObject playerUIPrefab;
 		public Transform PlayerUIParent;
 
-		public GameObject[] players = new GameObject[]{null, null, null, null};
+		public GameObject[] players = new GameObject[4];
 		
 		public GameObject[] playerInfo = new GameObject[4];
 

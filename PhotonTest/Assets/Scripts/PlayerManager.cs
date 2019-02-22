@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -111,6 +112,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
             //gm.numClicked++;
             localScore++;
             Debug.Log("<b> Num clicked = </b>" + this.localScore + " By: " + this.gameObject.name);
+            gm.playerInfo[playerIndex].GetComponent<Text>().text = PhotonNetwork.LocalPlayer.NickName + " has "+localScore+" points";
         }
         
 
