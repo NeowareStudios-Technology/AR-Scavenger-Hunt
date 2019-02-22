@@ -54,12 +54,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     /// </summary>
     void Update()
     {
-        ProcessInputs ();
-        // trigger Beams active state
-        if (beams != null && IsFiring != beams.activeSelf)
-        {
-            beams.SetActive(IsFiring);
-        }
     }
     void Start(){
         if (PlayerUiPrefab!=null)
@@ -106,14 +100,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         [PunRPC]
         public void ButtonClicked()
         {
-            
+            string playerName;
             GameManager gm =  GameObject.Find("GameManager").GetComponent<GameManager>();
             
             //gm.numClicked++;
             localScore++;
             Debug.Log("<b> Num clicked = </b>" + this.localScore + " By: " + this.gameObject.name);
             Debug.Log("player index is: " + playerIndex);
-            gm.playerInfo[playerIndex].GetComponent<Text>().text = PhotonNetwork.LocalPlayer.NickName + " has "+localScore+" points";
+            
+            playerName = PhotonNetwork.PlayerList[playerIndex].NickName;
+
+            gm.playerInfo[playerIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
         }
         
 
