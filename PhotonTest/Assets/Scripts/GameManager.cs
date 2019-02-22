@@ -18,6 +18,11 @@ using System.Collections.Generic;
 
 		public List<GameObject> players = new List<GameObject>();
 
+		public int player1score = 0;
+		public int player2score = 0;
+		public int player3score = 0;
+		public int player4score = 0;
+
         #region Photon Callbacks
 
 
@@ -42,10 +47,9 @@ using System.Collections.Generic;
 				Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
 				// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
 				//PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
-				if (PhotonNetwork.IsMasterClient)
-			{
+				
 				InstantiatePlayer();
-			}
+			
 				
 				
 			}
@@ -85,7 +89,7 @@ using System.Collections.Generic;
 
 			Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
  
-			InstantiatePlayer();
+			
 			
 
 			if (PhotonNetwork.IsMasterClient)
@@ -127,7 +131,17 @@ using System.Collections.Generic;
 		}
 
 	public void ClickThis(){
-		
+		//PhotonView photonView = this.GetComponent<PhotonView>();
+		PhotonView[] foundObjects = FindObjectsOfType<PhotonView>();
+		foreach (PhotonView x in foundObjects){
+			Debug.Log("Length of FoundObjects = " + foundObjects.Length);
+			if (x.IsMine){
+				Debug.Log("This many objects are 'Mine'");
+				x.RPC("ButtonClicked", RpcTarget.All);
+			}
+		}
+		//foundObjects.RPC("ButtonClicked", RpcTarget.All, "yo");
+    	//photonView.RPC("ButtonClicked", RpcTarget.All, "yo");	
 	}
 	
     #region RPC Calls
@@ -135,8 +149,8 @@ using System.Collections.Generic;
     [PunRPC]
     void ButtonClicked(string message)
     {
-        numClicked++;
-        Debug.Log("<b> Num clicked = </b>" + numClicked);
+        //numClicked++;
+       // Debug.Log("<b> Num clicked = </b>" + numClicked);
     }
     #endregion
     }

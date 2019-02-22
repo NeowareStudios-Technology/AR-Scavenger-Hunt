@@ -9,7 +9,7 @@ using Photon.Realtime;
 
 public class PlayerManager : MonoBehaviourPunCallbacks {
     
-   
+    public int localScore = 0;
     
     #region  Public Fields
 
@@ -83,8 +83,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
                 if (!IsFiring)
                 {
                     IsFiring = true;
-                    PhotonView photonView = this.GetComponent<PhotonView>();
-                    photonView.RPC("ButtonClicked", RpcTarget.All, "yo");	
+                    //PhotonView photonView = this.GetComponent<PhotonView>();
+                    //photonView.RPC("ButtonClicked", RpcTarget.All, "yo");	
                    // GameObject.Find("GameManager").GetComponent<GameManager>().ButtonClicked();
                     
                 }
@@ -101,11 +101,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         #endregion
 
         [PunRPC]
-        public void ButtonClicked(string message)
+        public void ButtonClicked()
         {
+            
             GameManager gm =  GameObject.Find("GameManager").GetComponent<GameManager>();
-            gm.numClicked++;
-            Debug.Log("<b> Num clicked = </b>" + gm.numClicked);
+            
+            //gm.numClicked++;
+            localScore++;
+            Debug.Log("<b> Num clicked = </b>" + this.localScore + " By: " + this.gameObject.name);
         }
         
 

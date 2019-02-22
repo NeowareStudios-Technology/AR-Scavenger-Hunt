@@ -103,11 +103,11 @@ GameObject:
   - component: {fileID: 449}
   - component: {fileID: 393}
   - component: {fileID: 513}
-  - component: {fileID: 570}
+  - component: {fileID: 567}
   - component: {fileID: 506}
+  - component: {fileID: 566}
+  - component: {fileID: 568}
   - component: {fileID: 569}
-  - component: {fileID: 571}
-  - component: {fileID: 572}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -188,7 +188,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &570
+--- !u!114 &567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,7 +216,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &569
+--- !u!114 &566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,10 +228,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89e2389b938356c4caa76c6742e7a210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localScore: 0
   PlayerUiPrefab: {fileID: 0}
   Health: 0
   beams: {fileID: 96}
---- !u!114 &571
+--- !u!114 &568
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,7 +247,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
---- !u!114 &572
+--- !u!114 &569
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -264,7 +265,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 571}
+  - {fileID: 568}
   viewIdField: 0
   InstantiationId: 1
   isRuntimeInstantiated: 0
