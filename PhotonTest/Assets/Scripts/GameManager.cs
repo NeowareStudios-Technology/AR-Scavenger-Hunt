@@ -198,28 +198,9 @@ using System.Collections.Generic;
 
 		public override void OnPlayerLeftRoom(Player other)
 		{
-			Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
 
-			if ((GameObject.Find("player1") == null)&&(players[0] != null))
-			{
-				players[0] = null;
-				playerInfo[0].SetActive(false);
-			}
-			if ((GameObject.Find("player2") == null)&&(players[1] != null))
-			{
-				players[1] = null;
-				playerInfo[1].SetActive(false);
-			}
-			if ((GameObject.Find("player3") == null)&&(players[2] != null))
-			{
-				players[2] = null;
-				playerInfo[2].SetActive(false);
-			}
-			if ((GameObject.Find("player4") == null)&&(players[3] != null))
-			{
-				players[3] = null;
-				playerInfo[3].SetActive(false);
-			}
+			StartCoroutine("DelayedDeactivateUI");
+			Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
 
 
 			if (PhotonNetwork.IsMasterClient)
@@ -231,6 +212,32 @@ using System.Collections.Generic;
 			}
 
 
+		}
+
+		private IEnumerator DelayedDeactivateUI()
+		{
+			yield return new WaitForSeconds(1);
+
+			if (GameObject.Find("player1") == null)
+				{
+					players[0] = null;
+					playerInfo[0].SetActive(false);
+				}
+				if (GameObject.Find("player2") == null)
+				{
+					players[1] = null;
+					playerInfo[1].SetActive(false);
+				}
+				if (GameObject.Find("player3") == null)
+				{
+					players[2] = null;
+					playerInfo[2].SetActive(false);
+				}
+				if (GameObject.Find("player4") == null)
+				{
+					players[3] = null;
+					playerInfo[3].SetActive(false);
+				}
 		}
 
 
