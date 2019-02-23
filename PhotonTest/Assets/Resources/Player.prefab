@@ -232,6 +232,7 @@ MonoBehaviour:
   playerIndex: 0
   PlayerUiPrefab: {fileID: 0}
   Health: 0
+  isReady: 0
   beams: {fileID: 96}
 --- !u!114 &568
 MonoBehaviour:

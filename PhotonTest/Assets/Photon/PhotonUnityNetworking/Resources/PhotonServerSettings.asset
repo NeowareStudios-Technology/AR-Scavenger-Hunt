@@ -33,5 +33,8 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - ButtonClicked
+  - GoButtonClicked
+  - ReadyButtonClicked
+  - StartButtonClicked
   DisableAutoOpenWizard: 1
   ShowSettings: 0

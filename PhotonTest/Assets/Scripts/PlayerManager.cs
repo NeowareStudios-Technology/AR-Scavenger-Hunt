@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     public GameObject PlayerUiPrefab;
 
     public int Health;
-
+    public bool isReady;
     #endregion
 
     #region Private Fields
@@ -120,6 +120,48 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
             _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
             
+        
+        [PunRPC]
+        public void ReadyButtonClicked()
+        {
+            string playerName;
+            GameManager gm =  GameObject.Find("GameManager").GetComponent<GameManager>();
+            
+            //gm.numClicked++;
+            localScore++;
+            Debug.Log("<b> Num clicked = </b>" + this.localScore + " By: " + this.gameObject.name);
+            Debug.Log("player index is: " + playerIndex);
+            
+            playerName = PhotonNetwork.PlayerList[playerIndex].NickName;
+
+            gm.playerInfo[playerIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
+        }
+
+        [PunRPC]
+        public void GoButtonClicked()
+        {
+           Debug.Log("Ready button clicked player ready test");
+           isReady = true;
+           
+        }
+
+        [PunRPC]
+        public void StartButtonClicked()
+        {
+           Debug.Log("Start button clicked player ready test");
+           isReady = true;
+           PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
+           foreach (PlayerManager pms in foundObjects){
+				if (!pms.isReady){
+					Debug.Log("Not all players are ready!");
+					return;
+				}
+				else{
+					GameObject.Find("BigButton").GetComponent<Button>().interactable = true;
+				}
+			}
+           
+        }
 
         #endregion
 

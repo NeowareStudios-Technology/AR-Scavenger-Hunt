@@ -277,5 +277,28 @@ using System.Collections.Generic;
        // Debug.Log("<b> Num clicked = </b>" + numClicked);
     }
     #endregion
-    }
 
+
+	public void CheckIfAllPlayersAreReady(){
+		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
+		foreach (PlayerManager x in foundObjects){
+			Debug.Log("Length of FoundObjects = " + foundObjects.Length);
+			if (x.gameObject.GetComponent<PhotonView>().IsMine){
+				x.gameObject.GetComponent<PhotonView>().RPC("StartButtonClicked", RpcTarget.All);
+			}
+		}
+		}
+    
+
+	public void SetThisPlayerReady(){
+		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
+		foreach (PlayerManager x in foundObjects){
+			Debug.Log("Length of FoundObjects = " + foundObjects.Length);
+			if (x.gameObject.GetComponent<PhotonView>().IsMine){
+				x.gameObject.GetComponent<PhotonView>().RPC("GoButtonClicked", RpcTarget.All);
+			}
+		}
+		
+			
+	}
+}
