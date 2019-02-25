@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     public int localScore = 0;
 
     public int playerIndex;
+    public int playerUiIndex;
     
     #region  Public Fields
 
@@ -107,10 +108,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
             localScore++;
             Debug.Log("<b> Num clicked = </b>" + this.localScore + " By: " + this.gameObject.name);
             Debug.Log("player index is: " + playerIndex);
+            Debug.Log(PhotonNetwork.PlayerList[playerIndex].NickName);
             
             playerName = PhotonNetwork.PlayerList[playerIndex].NickName;
 
-            gm.playerInfo[playerIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
+            gm.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
         }
         
 

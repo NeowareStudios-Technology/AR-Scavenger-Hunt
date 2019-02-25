@@ -136,6 +136,7 @@ using System.Collections.Generic;
 					if (players[0] == null)
 						{
 							newPlayer.GetComponent<PlayerManager>().playerIndex = 0;
+							newPlayer.GetComponent<PlayerManager>().playerUiIndex = 0;
 							newPlayer.name = "player1";
 							players[0] = newPlayer;
 							playerInfo[0].SetActive(true);
@@ -143,6 +144,7 @@ using System.Collections.Generic;
 						else if (players[1] == null)
 						{
 							newPlayer.GetComponent<PlayerManager>().playerIndex = 1;
+							newPlayer.GetComponent<PlayerManager>().playerUiIndex = 1;
 							newPlayer.name = "player2";
 							players[1] = newPlayer;
 							playerInfo[1].SetActive(true);
@@ -150,6 +152,7 @@ using System.Collections.Generic;
 						else if (players[2] == null)
 						{
 							newPlayer.GetComponent<PlayerManager>().playerIndex = 2;
+							newPlayer.GetComponent<PlayerManager>().playerUiIndex = 2;
 							newPlayer.name = "player3";
 							players[2] = newPlayer;
 							playerInfo[2].SetActive(true);
@@ -157,6 +160,7 @@ using System.Collections.Generic;
 						else if (players[3] == null)
 						{
 							newPlayer.GetComponent<PlayerManager>().playerIndex = 3;
+							newPlayer.GetComponent<PlayerManager>().playerUiIndex = 3;
 							newPlayer.name = "player4";
 							players[3] = newPlayer;
 							playerInfo[3].SetActive(true);
@@ -218,26 +222,39 @@ using System.Collections.Generic;
 		{
 			yield return new WaitForSeconds(1);
 
+			//if player left, decrease index of all following players (so no indexing error)
 			if (GameObject.Find("player1") == null)
-				{
-					players[0] = null;
-					playerInfo[0].SetActive(false);
-				}
-				if (GameObject.Find("player2") == null)
-				{
-					players[1] = null;
-					playerInfo[1].SetActive(false);
-				}
-				if (GameObject.Find("player3") == null)
-				{
-					players[2] = null;
-					playerInfo[2].SetActive(false);
-				}
-				if (GameObject.Find("player4") == null)
-				{
-					players[3] = null;
-					playerInfo[3].SetActive(false);
-				}
+			{
+				players[0] = null;
+
+				if (GameObject.Find("player2") != null)
+					players[1].GetComponent<PlayerManager>().playerIndex --;
+				if (GameObject.Find("player3") != null)
+					players[2].GetComponent<PlayerManager>().playerIndex --;
+				if (GameObject.Find("player4") != null)
+					players[3].GetComponent<PlayerManager>().playerIndex --;
+			}
+			if (GameObject.Find("player2") == null)
+			{
+				players[1] = null;
+
+				if (GameObject.Find("player3") != null)
+					players[2].GetComponent<PlayerManager>().playerIndex --;
+				if (GameObject.Find("player4") != null)
+					players[3].GetComponent<PlayerManager>().playerIndex --;
+			}
+			if (GameObject.Find("player3") == null)
+			{
+				players[2] = null;
+
+				if (GameObject.Find("player4") != null)
+					players[3].GetComponent<PlayerManager>().playerIndex --;
+				
+			}
+			if (GameObject.Find("player4") == null)
+			{
+				players[3] = null;
+			}
 		}
 
 
