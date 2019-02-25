@@ -165,6 +165,23 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
            
         }
 
+        [PunRPC]
+        public void CheckIfPlayersAreReady(){
+		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
+		foreach (PlayerManager x in foundObjects){
+				if (!x.isReady){
+                    GameObject.Find("GameManager").GetComponent<GameManager>().ArePlayersReadyText.text = "not all players are ready!";
+					//ArePlayersReadyText.text = "Not all players are ready!";
+					Debug.Log("Not all players are ready!");
+					return;
+				}
+				else{
+                    GameObject.Find("GameManager").GetComponent<GameManager>().ArePlayersReadyText.text = "All players are ready!";
+					//ArePlayersReadyText.text = "All players are ready!";
+				}
+			}
+	}
+
         #endregion
 
     

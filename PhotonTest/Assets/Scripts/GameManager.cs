@@ -29,6 +29,8 @@ using System.Collections.Generic;
 
         #region Photon Callbacks
 
+		public Text ArePlayersReadyText;
+		public GameObject startButton;
 
         /// <summary>
         /// Called when the local player left the room. We need to load the launcher scene.
@@ -54,6 +56,10 @@ using System.Collections.Generic;
 
 				StartCoroutine("DelayedPlayerInstantiate");
 							
+			}
+			if (PhotonNetwork.IsMasterClient){
+				ArePlayersReadyText.gameObject.SetActive(true);
+				startButton.SetActive(true);
 			}
 		}
 
@@ -193,7 +199,7 @@ using System.Collections.Generic;
 			if (PhotonNetwork.IsMasterClient)
 			{
 				Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
-
+				
 
 				//LoadArena();
 			}
@@ -296,26 +302,38 @@ using System.Collections.Generic;
     #endregion
 
 
+	
 	public void CheckIfAllPlayersAreReady(){
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
-		foreach (PlayerManager x in foundObjects){
-			Debug.Log("Length of FoundObjects = " + foundObjects.Length);
-			if (x.gameObject.GetComponent<PhotonView>().IsMine){
-				x.gameObject.GetComponent<PhotonView>().RPC("StartButtonClicked", RpcTarget.All);
+		foreach (PlayerManager pms in foundObjects){
+				if (!pms.isReady){
+					ArePlayersReadyText.text = "Not all players are ready!";
+					Debug.Log("Not all players are ready!");
+					return;
+				}
+				else{
+					ArePlayersReadyText.text = "All players are ready!";
+					pms.gameObject.GetComponent<PhotonView>().RPC("StartButtonClicked", RpcTarget.All);
+				}
 			}
-		}
 		}
     
 
 	public void SetThisPlayerReady(){
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
 		foreach (PlayerManager x in foundObjects){
-			Debug.Log("Length of FoundObjects = " + foundObjects.Length);
+			Debug.Log("# of player managers SetThisPlayerReady " + foundObjects.Length);
 			if (x.gameObject.GetComponent<PhotonView>().IsMine){
 				x.gameObject.GetComponent<PhotonView>().RPC("GoButtonClicked", RpcTarget.All);
+				x.gameObject.GetComponent<PhotonView>().RPC("CheckIfPlayersAreReady", RpcTarget.All);
 			}
 		}
+		//CheckIfPlayersAreReady();
 		
 			
 	}
+
+	
+
+
 }

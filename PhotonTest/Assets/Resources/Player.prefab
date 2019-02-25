@@ -230,6 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localScore: 0
   playerIndex: 0
+  playerUiIndex: 0
   PlayerUiPrefab: {fileID: 0}
   Health: 0
   isReady: 0
