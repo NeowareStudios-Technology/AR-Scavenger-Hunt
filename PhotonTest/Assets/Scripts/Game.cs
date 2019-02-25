@@ -13,10 +13,9 @@ public class Game : MonoBehaviourPunCallbacks
 	public GameObject playerPrefab;
 	public GameObject[] players = new GameObject[] {null, null, null, null};
 	public GameObject[] playerInfo = new GameObject[4];
-	public int player1score = 0;
-	public int player2score = 0;
-	public int player3score = 0;
-	public int player4score = 0;
+	public bool[] playerCheck = new bool[] {false, false, false, false};
+	public int[] playerScores = new int[] {0,0,0,0};
+
 
 	//timer related
 	public static float timer;
@@ -88,32 +87,52 @@ public class Game : MonoBehaviourPunCallbacks
 	private void AssignExistingPlayer()
 	{
 		//check for players in room and set local game manager & UI accordingly
-		newPlayer = GameObject.Find("player1");
-		if(newPlayer != null)
+		if (playerCheck[0] == false)
 		{
-			players[0] = newPlayer;
-			playerInfo[0].SetActive(true);
+			newPlayer = GameObject.Find("player1");
+			if(newPlayer != null)
+			{
+				playerCheck[0] = true;
+				players[0] = newPlayer;
+				playerInfo[0].SetActive(true);
+				playerInfo[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName + " has joined the quest!";
+			}
 		}
 
-		newPlayer = GameObject.Find("player2");
-		if(newPlayer != null)
+		if (playerCheck[1] == false)
 		{
-			players[1] = newPlayer;
-			playerInfo[1].SetActive(true);
+			newPlayer = GameObject.Find("player2");
+			if(newPlayer != null)
+			{
+				playerCheck[1] = true;
+				players[1] = newPlayer;
+				playerInfo[1].SetActive(true);
+				playerInfo[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[1].NickName + " has joined the quest!";
+			}
 		}
 
-		newPlayer = GameObject.Find("player3");
-		if(newPlayer != null)
+		if (playerCheck[2] == false)
 		{
-			players[2] = newPlayer;
-			playerInfo[2].SetActive(true);
+			newPlayer = GameObject.Find("player3");
+			if(newPlayer != null)
+			{
+				playerCheck[2] = true;
+				players[2] = newPlayer;
+				playerInfo[2].SetActive(true);
+				playerInfo[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[2].NickName + " has joined the quest!";
+			}
 		}
 
-		newPlayer = GameObject.Find("player4");
-		if(newPlayer != null)
+		if (playerCheck[2] == false)
 		{
-			players[3] = newPlayer;
-			playerInfo[3].SetActive(true);
+			newPlayer = GameObject.Find("player4");
+			if(newPlayer != null)
+			{
+				playerCheck[3] = true;
+				players[3] = newPlayer;
+				playerInfo[3].SetActive(true);
+				playerInfo[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[3].NickName + " has joined the quest!";
+			}
 		}
 	}
 
@@ -232,7 +251,8 @@ public class Game : MonoBehaviourPunCallbacks
 
 	public override void OnPlayerLeftRoom(Player other)
 	{
-		StartCoroutine("DelayedDeactivateUI");
+		
+		StartCoroutine("DelayedRemovePlayerFromGameLogic");
 		Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
 		if (PhotonNetwork.IsMasterClient)
 		{
@@ -240,8 +260,7 @@ public class Game : MonoBehaviourPunCallbacks
 		}
 	}
 
-/* 
-	private IEnumerator DelayedDeactivateUI()
+	private IEnumerator DelayedRemovePlayerFromGameLogic()
 	{
 		yield return new WaitForSeconds(1);
 
@@ -249,6 +268,8 @@ public class Game : MonoBehaviourPunCallbacks
 		if (GameObject.Find("player1") == null)
 		{
 			players[0] = null;
+			playerCheck[0] = false;
+			playerInfo[0].GetComponent<Text>().text = "";
 
 			if (GameObject.Find("player2") != null)
 				players[1].GetComponent<PlayerManager>().playerIndex --;
@@ -260,6 +281,8 @@ public class Game : MonoBehaviourPunCallbacks
 		if (GameObject.Find("player2") == null)
 		{
 			players[1] = null;
+			playerCheck[1] = false;
+			playerInfo[1].GetComponent<Text>().text = "";
 
 			if (GameObject.Find("player3") != null)
 				players[2].GetComponent<PlayerManager>().playerIndex --;
@@ -269,6 +292,8 @@ public class Game : MonoBehaviourPunCallbacks
 		if (GameObject.Find("player3") == null)
 		{
 			players[2] = null;
+			playerCheck[2] = false;
+			playerInfo[2].GetComponent<Text>().text = "";
 
 			if (GameObject.Find("player4") != null)
 				players[3].GetComponent<PlayerManager>().playerIndex --;
@@ -277,7 +302,8 @@ public class Game : MonoBehaviourPunCallbacks
 		if (GameObject.Find("player4") == null)
 		{
 			players[3] = null;
+			playerCheck[3] = false;
+			playerInfo[3].GetComponent<Text>().text = "";
 		}
 	}
-	*/
 }

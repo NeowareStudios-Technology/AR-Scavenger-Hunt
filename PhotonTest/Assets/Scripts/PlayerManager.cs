@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     
 
     //Number of clues found by player
-    public int localScore = 0;
+    //public int game.playerScores[playerIndex] = 0;
 
 
     public int playerIndex;
@@ -40,9 +40,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     public void ButtonClicked()
     {
 
-        localScore++;
+        game.playerScores[playerIndex]++;
         FindPlayerName();
-        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
+        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+game.playerScores[playerIndex]+" points";
 
     }
             
@@ -52,7 +52,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     {
        
         FindPlayerName();
-        game.playerInfo[playerIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
+        game.playerInfo[playerIndex].GetComponent<Text>().text = playerName + " has "+game.playerScores[playerIndex]+" points";
 
     }
 
@@ -112,7 +112,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     {
                 
         FindPlayerName();
-        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
+        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+game.playerScores[playerIndex]+" points";
 
     }
 
