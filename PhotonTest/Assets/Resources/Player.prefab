@@ -231,11 +231,7 @@ MonoBehaviour:
   localScore: 0
   playerIndex: 0
   playerUiIndex: 0
-  gameManager: {fileID: 0}
-  PlayerUiPrefab: {fileID: 0}
-  Health: 0
   isReady: 0
-  beams: {fileID: 5247553319354464649}
 --- !u!114 &3132584834785597930
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,6 +37,7 @@ public class Game : MonoBehaviourPunCallbacks
 	{
 		CheckIfPlayerPrefabExists();
 		CheckAndSetMasterClientUi();
+		StartCoroutine("LoadPlayerName");	
 	}
 
 	//we need a player prefab to play the game
@@ -51,7 +52,8 @@ public class Game : MonoBehaviourPunCallbacks
 			Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
 			// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
 			//PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
-			StartCoroutine("DelayedPlayerInstantiate");	
+			StartCoroutine("DelayedPlayerInstantiate");
+			
 		}
 	}
 
@@ -60,13 +62,27 @@ public class Game : MonoBehaviourPunCallbacks
 	{
 		yield return new WaitForSeconds(1);
 		InstantiatePlayer();
+		
+	
+	}
+
+	private IEnumerator LoadPlayerName(){
+		yield return new WaitForSeconds(1.1f);
+		LoadPlayerNameUi();
 	}
 
 	private void InstantiatePlayer()
 	{
 			GameObject GO = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,0f,0f), Quaternion.identity, 0);
+			
 	}
-
+	
+	private void LoadPlayerNameUi(){
+		PhotonView photonView = FindObjectOfType<PhotonView>();
+		photonView.RPC("SetPlayerUi", RpcTarget.All);
+	}
+	
+	
 	//checks if this client is the master client and changes UI accordingly
 	private void CheckAndSetMasterClientUi()
 	{
@@ -156,6 +172,7 @@ public class Game : MonoBehaviourPunCallbacks
 				playerInfo[3].SetActive(true);
 			}
 		}
+		
 	}
 
 	private void UpdateTimer()
