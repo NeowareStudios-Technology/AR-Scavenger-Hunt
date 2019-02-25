@@ -38,7 +38,7 @@ public class PlayerUI: MonoBehaviour
         // Reflect the Player Health
         if (PlayerHealthSlider != null)
         {
-            PlayerHealthSlider.value = _target.Health;
+          //  PlayerHealthSlider.value = _target.Health;
         }
         if (_target == null)
         {

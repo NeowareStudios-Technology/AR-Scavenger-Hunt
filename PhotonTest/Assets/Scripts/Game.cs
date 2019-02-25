@@ -213,8 +213,8 @@ public class Game : MonoBehaviourPunCallbacks
 		foreach (PlayerManager x in foundObjects){
 			Debug.Log("# of player managers SetThisPlayerReady " + foundObjects.Length);
 			if (x.gameObject.GetComponent<PhotonView>().IsMine){
-				x.gameObject.GetComponent<PhotonView>().RPC("GoButtonClicked", RpcTarget.All);
-				x.gameObject.GetComponent<PhotonView>().RPC("CheckIfPlayersAreReady", RpcTarget.All);
+				x.gameObject.GetComponent<PhotonView>().RPC("SetPlayerReady", RpcTarget.All);
+				x.gameObject.GetComponent<PhotonView>().RPC("SetUiIfPlayersAreReady", RpcTarget.All);
 			}
 		}
 	}

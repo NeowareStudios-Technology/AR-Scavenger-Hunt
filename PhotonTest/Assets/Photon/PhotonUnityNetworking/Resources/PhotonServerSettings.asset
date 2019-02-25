@@ -37,5 +37,8 @@ MonoBehaviour:
   - ReadyButtonClicked
   - StartButtonClicked
   - CheckIfPlayersAreReady
+  - SetPlayerReady
+  - SetPlayerUi
+  - SetUiIfPlayersAreReady
   DisableAutoOpenWizard: 1
   ShowSettings: 0
