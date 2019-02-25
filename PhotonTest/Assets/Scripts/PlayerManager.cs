@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     
 
     //Number of clues found by player
-    //public int game.playerScores[playerIndex] = 0;
+    public int localScore = 0;
 
 
     public int playerIndex;
@@ -40,9 +40,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     public void ButtonClicked()
     {
 
-        game.playerScores[playerIndex]++;
+        localScore++;
         FindPlayerName();
-        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+game.playerScores[playerIndex]+" points";
+        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
 
     }
             
@@ -52,7 +52,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     {
        
         FindPlayerName();
-        game.playerInfo[playerIndex].GetComponent<Text>().text = playerName + " has "+game.playerScores[playerIndex]+" points";
+        game.playerInfo[playerIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
 
     }
 
@@ -112,7 +112,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     {
                 
         FindPlayerName();
-        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+game.playerScores[playerIndex]+" points";
+        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
 
     }
 
@@ -138,6 +138,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 
         debugScoreButton.GetComponent<Button>().interactable = true;
         game.timeStarted = true;
+        PhotonNetwork.CurrentRoom.IsOpen = false;
 
     }
 }
