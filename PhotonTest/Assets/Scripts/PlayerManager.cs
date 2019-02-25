@@ -10,12 +10,14 @@ using Photon.Realtime;
 
 public class PlayerManager : MonoBehaviourPunCallbacks {
     
+    #region  Public Fields
+
     public int localScore = 0;
 
     public int playerIndex;
     public int playerUiIndex;
-    
-    #region  Public Fields
+
+    public GameManager gameManager;
 
     [Tooltip("The Player's UI GameObject Prefab")]
     public GameObject PlayerUiPrefab;
@@ -40,14 +42,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     /// </summary>
     void Awake()
     {
-        if (beams == null)
-        {
-            Debug.LogError("<Color=Red><a>Missing</a></Color> Beams Reference.", this);
-        }
-        else
-        {
-            beams.SetActive(false);
-        }
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     /// <summary>
@@ -160,6 +155,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 				}
 				else{
 					GameObject.Find("BigButton").GetComponent<Button>().interactable = true;
+                    gameManager.timeStarted = true;
 				}
 			}
            

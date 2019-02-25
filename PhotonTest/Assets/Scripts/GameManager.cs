@@ -17,15 +17,20 @@ using System.Collections.Generic;
 		public Transform PlayerUIParent;
 
 		public GameObject[] players = new GameObject[] {null, null, null, null};
-
-
-		
 		public GameObject[] playerInfo = new GameObject[4];
 
 		public int player1score = 0;
 		public int player2score = 0;
 		public int player3score = 0;
 		public int player4score = 0;
+
+		//timer related
+		public static float timer;
+ 		public bool timeStarted = false;
+		public Text timerUi;
+		int minutes;
+    int seconds;
+  	string niceTime;
 
         #region Photon Callbacks
 
@@ -172,6 +177,17 @@ using System.Collections.Generic;
 							playerInfo[3].SetActive(true);
 						}
 				}
+			Debug.Log(timeStarted);
+			//update timer
+			if (timeStarted == true) 
+    	{
+      	timer += Time.deltaTime;
+     	}       
+
+			int minutes = Mathf.FloorToInt(timer / 60F);
+     	int seconds = Mathf.FloorToInt(timer - minutes * 60);
+     	string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+			timerUi.text = niceTime;
 
 		}
         #region Public Methods
