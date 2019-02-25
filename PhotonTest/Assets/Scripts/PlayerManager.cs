@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     public int playerIndex;
     public int playerUiIndex;
 
-    public GameManager gameManager;
+    public Game game;
 
     [Tooltip("The Player's UI GameObject Prefab")]
     public GameObject PlayerUiPrefab;
@@ -42,7 +42,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     /// </summary>
     void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        game = GameObject.Find("GameManager").GetComponent<Game>();
     }
 
     /// <summary>
@@ -97,7 +97,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         public void ButtonClicked()
         {
             string playerName;
-            GameManager gm =  GameObject.Find("GameManager").GetComponent<GameManager>();
+            Game gm =  GameObject.Find("GameManager").GetComponent<Game>();
             
             //gm.numClicked++;
             localScore++;
@@ -122,7 +122,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         public void ReadyButtonClicked()
         {
             string playerName;
-            GameManager gm =  GameObject.Find("GameManager").GetComponent<GameManager>();
+            Game gm =  GameObject.Find("GameManager").GetComponent<Game>();
             
             //gm.numClicked++;
             localScore++;
@@ -155,7 +155,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 				}
 				else{
 					GameObject.Find("BigButton").GetComponent<Button>().interactable = true;
-                    gameManager.timeStarted = true;
+                    game.timeStarted = true;
 				}
 			}
            
@@ -166,13 +166,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
 		foreach (PlayerManager x in foundObjects){
 				if (!x.isReady){
-                    GameObject.Find("GameManager").GetComponent<GameManager>().ArePlayersReadyText.text = "not all players are ready!";
+                    GameObject.Find("GameManager").GetComponent<Game>().ArePlayersReadyText.text = "not all players are ready!";
 					//ArePlayersReadyText.text = "Not all players are ready!";
 					Debug.Log("Not all players are ready!");
 					return;
 				}
 				else{
-                    GameObject.Find("GameManager").GetComponent<GameManager>().ArePlayersReadyText.text = "All players are ready!";
+                    GameObject.Find("GameManager").GetComponent<Game>().ArePlayersReadyText.text = "All players are ready!";
 					//ArePlayersReadyText.text = "All players are ready!";
 				}
 			}
