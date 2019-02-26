@@ -13,6 +13,8 @@ public class Game : MonoBehaviourPunCallbacks
 	public GameObject playerPrefab;
 	public GameObject[] players = new GameObject[] {null, null, null, null};
 	public GameObject[] playerInfo = new GameObject[4];
+	public GameObject[] playerNamesInGame = new GameObject[4];
+	public GameObject[] potions = new GameObject[4];
 	public bool[] playerCheck = new bool[] {false, false, false, false};
 	public int[] playerScores = new int[] {0,0,0,0};
 
@@ -95,6 +97,9 @@ public class Game : MonoBehaviourPunCallbacks
 				playerCheck[0] = true;
 				players[0] = newPlayer;
 				playerInfo[0].SetActive(true);
+				potions[0].SetActive(true);
+				playerNamesInGame[0].SetActive(true);
+				playerNamesInGame[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 				playerInfo[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName + " has joined the quest!";
 			}
 		}
@@ -107,7 +112,10 @@ public class Game : MonoBehaviourPunCallbacks
 				playerCheck[1] = true;
 				players[1] = newPlayer;
 				playerInfo[1].SetActive(true);
+				potions[1].SetActive(true);
 				playerInfo[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[1].NickName + " has joined the quest!";
+				playerNamesInGame[1].SetActive(true);
+				playerNamesInGame[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 			}
 		}
 
@@ -119,7 +127,10 @@ public class Game : MonoBehaviourPunCallbacks
 				playerCheck[2] = true;
 				players[2] = newPlayer;
 				playerInfo[2].SetActive(true);
+				potions[2].SetActive(true);
 				playerInfo[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[2].NickName + " has joined the quest!";
+				playerNamesInGame[2].SetActive(true);
+				playerNamesInGame[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 			}
 		}
 
@@ -131,7 +142,10 @@ public class Game : MonoBehaviourPunCallbacks
 				playerCheck[3] = true;
 				players[3] = newPlayer;
 				playerInfo[3].SetActive(true);
+				potions[3].SetActive(true);
 				playerInfo[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[3].NickName + " has joined the quest!";
+				playerNamesInGame[3].SetActive(true);
+				playerNamesInGame[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 			}
 		}
 	}
@@ -149,6 +163,9 @@ public class Game : MonoBehaviourPunCallbacks
 				newPlayer.name = "player1";
 				players[0] = newPlayer;
 				playerInfo[0].SetActive(true);
+				potions[0].SetActive(true);
+				playerNamesInGame[0].SetActive(true);
+				playerNamesInGame[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 			}
 			else if (players[1] == null)
 			{
@@ -157,6 +174,9 @@ public class Game : MonoBehaviourPunCallbacks
 				newPlayer.name = "player2";
 				players[1] = newPlayer;
 				playerInfo[1].SetActive(true);
+				potions[1].SetActive(true);
+				playerNamesInGame[1].SetActive(true);
+				playerNamesInGame[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 			}
 			else if (players[2] == null)
 			{
@@ -165,6 +185,9 @@ public class Game : MonoBehaviourPunCallbacks
 				newPlayer.name = "player3";
 				players[2] = newPlayer;
 				playerInfo[2].SetActive(true);
+				potions[2].SetActive(true);
+				playerNamesInGame[2].SetActive(true);
+				playerNamesInGame[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 			}
 			else if (players[3] == null)
 			{
@@ -173,6 +196,9 @@ public class Game : MonoBehaviourPunCallbacks
 				newPlayer.name = "player4";
 				players[3] = newPlayer;
 				playerInfo[3].SetActive(true);
+				potions[3].SetActive(true);
+				playerNamesInGame[3].SetActive(true);
+				playerNamesInGame[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 			}
 		}
 	}
@@ -270,6 +296,9 @@ public class Game : MonoBehaviourPunCallbacks
 			players[0] = null;
 			playerCheck[0] = false;
 			playerInfo[0].GetComponent<Text>().text = "";
+			potions[0].SetActive(false);
+			playerNamesInGame[0].SetActive(false);
+			playerNamesInGame[0].GetComponent<Text>().text = "";
 
 			if (GameObject.Find("player2") != null)
 				players[1].GetComponent<PlayerManager>().playerIndex --;
@@ -283,6 +312,9 @@ public class Game : MonoBehaviourPunCallbacks
 			players[1] = null;
 			playerCheck[1] = false;
 			playerInfo[1].GetComponent<Text>().text = "";
+			potions[1].SetActive(false);
+			playerNamesInGame[1].SetActive(false);
+			playerNamesInGame[1].GetComponent<Text>().text = "";
 
 			if (GameObject.Find("player3") != null)
 				players[2].GetComponent<PlayerManager>().playerIndex --;
@@ -294,6 +326,9 @@ public class Game : MonoBehaviourPunCallbacks
 			players[2] = null;
 			playerCheck[2] = false;
 			playerInfo[2].GetComponent<Text>().text = "";
+			potions[2].SetActive(false);
+			playerNamesInGame[2].SetActive(false);
+			playerNamesInGame[2].GetComponent<Text>().text = "";
 
 			if (GameObject.Find("player4") != null)
 				players[3].GetComponent<PlayerManager>().playerIndex --;
@@ -304,6 +339,9 @@ public class Game : MonoBehaviourPunCallbacks
 			players[3] = null;
 			playerCheck[3] = false;
 			playerInfo[3].GetComponent<Text>().text = "";
+			potions[3].SetActive(false);
+			playerNamesInGame[3].SetActive(false);
+			playerNamesInGame[3].GetComponent<Text>().text = "";
 		}
 	}
 }
