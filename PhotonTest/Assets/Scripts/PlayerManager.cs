@@ -139,6 +139,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         debugScoreButton.GetComponent<Button>().interactable = true;
         game.timeStarted = true;
         PhotonNetwork.CurrentRoom.IsOpen = false;
-
+        GameObject.Find("StoryImage").SetActive(false);
     }
 }

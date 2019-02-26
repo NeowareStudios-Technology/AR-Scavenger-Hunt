@@ -117,7 +117,7 @@ public class Launcher : MonoBehaviourPunCallbacks {
 
 		public override void OnJoinedRoom()
 		{
-            PhotonNetwork.LoadLevel("Scavenge");
+            PhotonNetwork.LoadLevel("ARScavengerHunt");
 			Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
 		}
 
