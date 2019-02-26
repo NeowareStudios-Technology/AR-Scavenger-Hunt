@@ -15,11 +15,14 @@ public class ScavengerHuntAR : MonoBehaviour
     public GameObject map;
     public GameObject[] arMarkers;
     public string[] arHints;
+    public GameObject[] arModels;
     public string shComplete = "Thank you for playing!";
     public Text hintText;
     public int arIndex ;
     public int maxTargets = 10;
     public Game game;
+    public GameObject hintPanel;
+    public GameObject hintToggle;
 
     //keeps track of unlocked targets
     public List<int> unlockedTargets = new List<int>();
@@ -46,6 +49,7 @@ public class ScavengerHuntAR : MonoBehaviour
             hintText.text = shComplete;
             return;
         }
+        
         //randomly get index of next target to hunt
         int randomSelection = Random.Range(0,maxTargets);
         //ensure that the target is not already unlocked
@@ -53,6 +57,9 @@ public class ScavengerHuntAR : MonoBehaviour
         {
             randomSelection = Random.Range(0,maxTargets);
         }
+
+        StartCoroutine(SpawnFoundObject(arIndex));
+
         //save the target index in the unlockedTargets list
         unlockedTargets.Add(randomSelection);
         arIndex = randomSelection;
@@ -60,5 +67,16 @@ public class ScavengerHuntAR : MonoBehaviour
         //Else just update the hint text
         hintText.text = arHints[arIndex];
         game.IncrementScore();
+    }
+
+    private IEnumerator SpawnFoundObject(int paramArIndex){
+        hintPanel.SetActive(false);
+        hintToggle.GetComponent<Toggle>().enabled = false;
+        arModels[paramArIndex].SetActive(true);
+        yield return new WaitForSeconds(3.0f);
+        arModels[paramArIndex].SetActive(false);
+        hintPanel.SetActive(true);
+        hintToggle.GetComponent<Toggle>().enabled = true;
+        hintToggle.GetComponent<Toggle>().isOn = true;
     }
 }
