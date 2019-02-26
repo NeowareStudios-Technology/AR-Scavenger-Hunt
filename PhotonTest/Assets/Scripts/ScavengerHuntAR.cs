@@ -19,6 +19,7 @@ public class ScavengerHuntAR : MonoBehaviour
     public Text hintText;
     public int arIndex ;
     public int maxTargets = 10;
+    public Game game;
 
     //keeps track of unlocked targets
     public List<int> unlockedTargets = new List<int>();
@@ -58,5 +59,6 @@ public class ScavengerHuntAR : MonoBehaviour
 
         //Else just update the hint text
         hintText.text = arHints[arIndex];
+        game.IncrementScore();
     }
 }

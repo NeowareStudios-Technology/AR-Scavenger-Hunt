@@ -24,14 +24,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 
     private PlayerManager[] playerManagers = new PlayerManager[4];
 
-    private GameObject debugScoreButton;
+   
 
 
     void Start()
     {
 
         game =  GameObject.Find("GameManager").GetComponent<Game>();
-        debugScoreButton = GameObject.Find("IncrementScoreButton");
+        
+        
         
     }
 
@@ -136,9 +137,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     private void StartGame()
     {
 
-        debugScoreButton.GetComponent<Button>().interactable = true;
+        
         game.timeStarted = true;
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        GameObject.Find("StoryImage").SetActive(false);
+        GameObject.Find("StoryandReadyCanvas").SetActive(false);
     }
 }
