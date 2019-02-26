@@ -71,12 +71,12 @@ public class ScavengerHuntAR : MonoBehaviour
 
     private IEnumerator SpawnFoundObject(int paramArIndex){
         hintPanel.SetActive(false);
-        hintToggle.GetComponent<Toggle>().enabled = false;
+        hintToggle.GetComponent<Button>().enabled = false;
         arModels[paramArIndex].SetActive(true);
         yield return new WaitForSeconds(3.0f);
         arModels[paramArIndex].SetActive(false);
         hintPanel.SetActive(true);
-        hintToggle.GetComponent<Toggle>().enabled = true;
-        hintToggle.GetComponent<Toggle>().isOn = true;
+        hintToggle.GetComponent<Button>().enabled = true;
+        //hintToggle.GetComponent<Toggle>().isOn = true;
     }
 }
