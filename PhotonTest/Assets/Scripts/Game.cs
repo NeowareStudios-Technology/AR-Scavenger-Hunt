@@ -101,6 +101,7 @@ public class Game : MonoBehaviourPunCallbacks
 				playerNamesInGame[0].SetActive(true);
 				playerNamesInGame[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 				playerInfo[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName + " has joined the quest!";
+				
 			}
 		}
 
@@ -115,7 +116,7 @@ public class Game : MonoBehaviourPunCallbacks
 				potions[1].SetActive(true);
 				playerInfo[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[1].NickName + " has joined the quest!";
 				playerNamesInGame[1].SetActive(true);
-				playerNamesInGame[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
+				playerNamesInGame[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[1].NickName;
 			}
 		}
 
@@ -130,7 +131,7 @@ public class Game : MonoBehaviourPunCallbacks
 				potions[2].SetActive(true);
 				playerInfo[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[2].NickName + " has joined the quest!";
 				playerNamesInGame[2].SetActive(true);
-				playerNamesInGame[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
+				playerNamesInGame[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[2].NickName;
 			}
 		}
 
@@ -145,7 +146,7 @@ public class Game : MonoBehaviourPunCallbacks
 				potions[3].SetActive(true);
 				playerInfo[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[3].NickName + " has joined the quest!";
 				playerNamesInGame[3].SetActive(true);
-				playerNamesInGame[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
+				playerNamesInGame[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[3].NickName;
 			}
 		}
 	}
