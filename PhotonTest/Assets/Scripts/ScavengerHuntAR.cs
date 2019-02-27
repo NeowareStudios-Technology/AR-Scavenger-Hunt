@@ -40,6 +40,7 @@ public class ScavengerHuntAR : MonoBehaviour
     //randomly unlock next target
     public void UnlockNextTarget()
     {
+        //Win Condition
         //if UnlockedTargets list size is greater or equal to max hints
         if ( unlockedTargets.Count == maxTargets)
         {
