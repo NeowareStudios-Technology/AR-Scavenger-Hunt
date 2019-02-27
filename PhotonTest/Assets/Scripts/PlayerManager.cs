@@ -26,7 +26,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 
     public GameObject endGameDragonAnimation;
     private GameObject winnerText;
+    private GameObject WinCanvas;
     public bool canFindClues = true;
+    public GameObject gameplayTheme;
+    public GameObject storyTheme;
 
    
 
@@ -36,9 +39,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 
         game =  GameObject.Find("GameManager").GetComponent<Game>();
         winnerText = GameObject.Find("WinnerText");
-        winnerText.SetActive(false);
+        //winnerText.SetActive(false);
         endGameDragonAnimation = GameObject.Find("Antler");
         endGameDragonAnimation.SetActive(false);
+        gameplayTheme = GameObject.Find("GameplayTheme");
+        gameplayTheme.SetActive(false);
+        storyTheme = GameObject.Find("StoryTheme");
+        WinCanvas = GameObject.Find("WinCanvas");
+        WinCanvas.SetActive(false);
     }
 
     
@@ -126,17 +134,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     private IEnumerator EndGame()
     {
        
-        if (localScore >= 10 && this.GetComponent<PhotonView>().IsMine)
-        {
-            winnerText.SetActive(true);
-        }
+        
+        WinCanvas.SetActive(true);
         ScavengerHuntAR scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
         scavengerHuntAr.hintPanel.SetActive(false);
-        endGameDragonAnimation.SetActive(true);
-        yield return new WaitForSeconds(7.0f);
-        endGameDragonAnimation.SetActive(false);
-        winnerText.SetActive(false);
-        game.LeaveRoom();
+        //endGameDragonAnimation.SetActive(true);
+       
+        //endGameDragonAnimation.SetActive(false);
+        winnerText.GetComponent<Text>().text = playerName + " won the game!";
+        yield return new WaitForSeconds(1.0f);
+        //game.LeaveRoom();
     }
 
 
@@ -171,8 +178,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         
         game.timeStarted = true;
         PhotonNetwork.CurrentRoom.IsOpen = false;
+        GameObject.Find("StartButton").SetActive(false);
         GameObject.Find("StoryandReadyCanvas").SetActive(false);
         GameObject.Find("PlayerNamePanel").SetActive(false);
-        GameObject.Find("StartButton").SetActive(false);
+        gameplayTheme.SetActive(true);
+        storyTheme.SetActive(false);
     }
 }

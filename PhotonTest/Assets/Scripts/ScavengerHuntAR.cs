@@ -22,7 +22,7 @@ public class ScavengerHuntAR : MonoBehaviour
     public int maxTargets = 10;
     public Game game;
     public GameObject hintPanel;
-    public GameObject hintToggle;
+    public GameObject hintButton;
 
     //keeps track of unlocked targets
     public List<int> unlockedTargets = new List<int>();
@@ -74,13 +74,20 @@ public class ScavengerHuntAR : MonoBehaviour
     }
 
     private IEnumerator SpawnFoundObject(int paramArIndex){
+        //turn off the hint panel
         hintPanel.SetActive(false);
-        hintToggle.GetComponent<Button>().enabled = false;
+        //turn off the panels ability to turn on for the duration of showing the model
+        hintButton.GetComponent<HintPanelToggle>().canToggle = false;
+        //ensuring no usage of button
+        hintButton.GetComponent<Button>().enabled = false;
         arModels[paramArIndex].SetActive(true);
         yield return new WaitForSeconds(3.0f);
         arModels[paramArIndex].SetActive(false);
+        //enable the hint panel
         hintPanel.SetActive(true);
-        hintToggle.GetComponent<Button>().enabled = true;
-        //hintToggle.GetComponent<Toggle>().isOn = true;
+        //enable the ability to toggle the panel
+        hintButton.GetComponent<HintPanelToggle>().canToggle = false;
+        hintButton.GetComponent<Button>().enabled = true;
+        
     }
 }

@@ -133,3 +133,5 @@ MonoBehaviour:
   isReady: 0
   endGameDragonAnimation: {fileID: 0}
   canFindClues: 1
+  gameplayTheme: {fileID: 0}
+  storyTheme: {fileID: 0}

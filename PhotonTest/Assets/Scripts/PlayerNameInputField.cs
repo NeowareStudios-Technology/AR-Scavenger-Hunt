@@ -41,7 +41,7 @@ public class PlayerNameInputField : MonoBehaviour
 			if (PlayerPrefs.HasKey(playerNamePrefKey))
 			{
 				defaultName = PlayerPrefs.GetString(playerNamePrefKey);
-				_inputField.text = defaultName;
+				//_inputField.text = defaultName;
 			}
 		}
 

@@ -60,7 +60,7 @@ public class Game : MonoBehaviourPunCallbacks
 	//Player Instantiate will not work here without a delay
 	public IEnumerator DelayedPlayerInstantiate()
 	{
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(0.25f);
 		InstantiatePlayer();
 	}
 
@@ -295,7 +295,7 @@ public class Game : MonoBehaviourPunCallbacks
 
 	private IEnumerator DelayedRemovePlayerFromGameLogic()
 	{
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(0.25f);
 
 		//if player left, decrease index of all following players (so no indexing error)
 		if (GameObject.Find("player1") == null)
