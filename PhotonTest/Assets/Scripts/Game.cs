@@ -35,9 +35,10 @@ public class Game : MonoBehaviourPunCallbacks
 	GameObject newPlayer;
 
 	void Start()
-	{
+	{	
 		CheckIfPlayerPrefabExists();
 		CheckAndSetMasterClientUi();
+		SetTimeToZero();
 	}
 
 	//we need a player prefab to play the game
@@ -202,6 +203,11 @@ public class Game : MonoBehaviourPunCallbacks
 				playerNamesInGame[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 			}
 		}
+	}
+
+	private void SetTimeToZero()
+	{
+		timer = 0.0f;
 	}
 
 	private void UpdateTimer()

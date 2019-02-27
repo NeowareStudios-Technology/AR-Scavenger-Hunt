@@ -131,3 +131,5 @@ MonoBehaviour:
   playerIndex: 0
   playerUiIndex: 0
   isReady: 0
+  endGameDragonAnimation: {fileID: 0}
+  canFindClues: 1

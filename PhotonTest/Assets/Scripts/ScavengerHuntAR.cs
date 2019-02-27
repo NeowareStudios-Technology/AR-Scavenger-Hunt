@@ -42,14 +42,17 @@ public class ScavengerHuntAR : MonoBehaviour
     {
         //Win Condition
         //if UnlockedTargets list size is greater or equal to max hints
+        game.IncrementScore();
         if ( unlockedTargets.Count == maxTargets)
         {
             //reset unlockedTargets list
-            unlockedTargets.Clear();
+            //unlockedTargets.Clear();
             //Set hint text to complete text, go away
-            hintText.text = shComplete;
+            //hintText.text = shComplete;
+            
             return;
         }
+        
         
         //randomly get index of next target to hunt
         int randomSelection = Random.Range(0,maxTargets);
@@ -67,7 +70,7 @@ public class ScavengerHuntAR : MonoBehaviour
 
         //Else just update the hint text
         hintText.text = arHints[arIndex];
-        game.IncrementScore();
+       
     }
 
     private IEnumerator SpawnFoundObject(int paramArIndex){

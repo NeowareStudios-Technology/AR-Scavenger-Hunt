@@ -24,6 +24,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 
     private PlayerManager[] playerManagers = new PlayerManager[4];
 
+    public GameObject endGameDragonAnimation;
+    private GameObject winnerText;
+    public bool canFindClues = true;
+
    
 
 
@@ -31,20 +35,28 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     {
 
         game =  GameObject.Find("GameManager").GetComponent<Game>();
-        
-        
-        
+        winnerText = GameObject.Find("WinnerText");
+        winnerText.SetActive(false);
+        endGameDragonAnimation = GameObject.Find("Antler");
+        endGameDragonAnimation.SetActive(false);
     }
 
     
     [PunRPC]
     public void ButtonClicked()
     {
-
-        localScore++;
-        FindPlayerName();
-        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
-        game.potions[playerUiIndex].GetComponent<Transform>().GetChild(0).GetComponent<Image>().fillAmount = (float)((localScore * 1.0f)/10.0f);
+        if (canFindClues)
+        {
+            localScore++;
+            if (localScore >= 10)
+            {
+                StartCoroutine(EndGame());
+            }
+            FindPlayerName();
+            game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
+            game.potions[playerUiIndex].GetComponent<Transform>().GetChild(0).GetComponent<Image>().fillAmount = (float)((localScore * 1.0f)/10.0f);
+        
+        }
     }
             
     
@@ -106,6 +118,25 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
                 game.ArePlayersReadyText.text = "All players are ready!";
             }
         }
+    }
+
+    
+
+
+    private IEnumerator EndGame()
+    {
+       
+        if (localScore >= 10 && this.GetComponent<PhotonView>().IsMine)
+        {
+            winnerText.SetActive(true);
+        }
+        ScavengerHuntAR scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
+        scavengerHuntAr.hintPanel.SetActive(false);
+        endGameDragonAnimation.SetActive(true);
+        yield return new WaitForSeconds(7.0f);
+        endGameDragonAnimation.SetActive(false);
+        winnerText.SetActive(false);
+        game.LeaveRoom();
     }
 
 
