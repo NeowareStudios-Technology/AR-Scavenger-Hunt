@@ -773,7 +773,7 @@ RectTransform:
   - {fileID: 892841480}
   - {fileID: 1726386470}
   m_Father: {fileID: 1017148857}
-  m_RootOrder: 11
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1173,7 +1173,7 @@ RectTransform:
   - {fileID: 1658019863}
   - {fileID: 808192544}
   m_Father: {fileID: 1017148857}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4025012, y: 0.14666666}
   m_AnchorMax: {x: 0.64500004, y: 0.33}
@@ -3773,8 +3773,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1.9, y: 0}
-  m_SizeDelta: {x: 11, y: 9.1108}
+  m_AnchoredPosition: {x: 1.9, y: 30.1}
+  m_SizeDelta: {x: 11, y: 14.6}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &628020957
 MonoBehaviour:
@@ -7041,11 +7041,11 @@ RectTransform:
   - {fileID: 706653357}
   - {fileID: 399715928}
   - {fileID: 2135154882}
-  - {fileID: 1697766615}
   - {fileID: 1701103625}
+  - {fileID: 89904877}
+  - {fileID: 1697766615}
   - {fileID: 204132619}
   - {fileID: 1981133429}
-  - {fileID: 89904877}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8575,16 +8575,29 @@ MonoBehaviour:
   - {fileID: 2074510899}
   - {fileID: 1842669383}
   arHints:
-  - Pokemon poster - model antlers
-  - LWA dev door - model ashes
-  - Information board in break room - model dagger
-  - Cintas box in break room - model book
-  - (Wont work) Super Glarey table in Design room - model egg
-  - Deadpool poster - model Clssic Diamond
-  - Space Jam poster - model mortar_pestle
-  - Fake Tree in lobby from welcome mat - model Mushroom
-  - Fake Tree in lobby from left - model PortionCorked
-  - Plant in lobby - model SnakeVenom
+  - 'I am a trophy for some, but for others I can be the key ingredient with the right
+    tools to crush me. (Insert line about where it is located in the real world) '
+  - 'From fire I am born. When touched I turn your fingers silvery, grey. (Insert
+    line about where it is located in the real world) '
+  - I have a hilt to hold and sharp edges for you to cut what you will need (Insert
+    line about where it is located in the real world)
+  - I have no voice and yet I speak to you, I tell of all things in the world that
+    people do. I have a spine and hinges, but I am not a man or a door. (Insert line
+    about where it is located in the real world)
+  - 'I cannot be used untilI am broken. (Insert line about where it is located in
+    the real world). '
+  - "Sometimes called a rock, but I am often worth a great deal. A bauble or a precious
+    stone, so tempting for some to steal.\_(Insert line about where it is located
+    in the real world) "
+  - 'Separate I am useless but together I can crush ingredients into powder. (Insert
+    line about where it is located in the real world) '
+  - "I am a type of room you cannot enter or leave. Raised from the ground below,
+    I could be poisonous or a delicious treat.\_(Insert line about where it is located
+    in the real world) "
+  - 'You will need to use me to contain the strength to put the dragon into his slumber
+    (Insert line about where it is located in the real world) '
+  - If I am removed from my host, he will become safe to the touch. (Insert line about
+    where it is located in the real world)
   arModels:
   - {fileID: 1036677388}
   - {fileID: 931060510}
@@ -9908,7 +9921,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 5.7, y: 0}
-  m_SizeDelta: {x: 520.8, y: 253.7}
+  m_SizeDelta: {x: 520.8, y: 337.7}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1464885021
 MonoBehaviour:
@@ -11095,7 +11108,7 @@ RectTransform:
   - {fileID: 708154272}
   - {fileID: 1732513140}
   m_Father: {fileID: 1017148857}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11172,7 +11185,7 @@ RectTransform:
   m_Children:
   - {fileID: 1386825842}
   m_Father: {fileID: 1017148857}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -12632,7 +12645,7 @@ RectTransform:
   - {fileID: 1936936013}
   - {fileID: 534158881}
   m_Father: {fileID: 1017148857}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
