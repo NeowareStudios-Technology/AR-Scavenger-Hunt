@@ -15,13 +15,15 @@ public class HintPanelAnimatorController : MonoBehaviour
     
     public void ChangeStateOfAnimator()
     {
-        if (animator.GetBool("open"))
-        {
-            animator.SetBool("open", false);
-        }
-        else
-        {
-            animator.SetBool("open", true);
-        } 
+        if (canToggle){
+            if (animator.GetBool("open"))
+            {
+                animator.SetBool("open", false);
+            }
+            else
+            {
+                animator.SetBool("open", true);
+            } 
+        }   
     }
 }

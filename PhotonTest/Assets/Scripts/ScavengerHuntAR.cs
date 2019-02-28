@@ -25,6 +25,7 @@ public class ScavengerHuntAR : MonoBehaviour
     public GameObject hintPanel;
     public GameObject hintButton;
     public GameObject mainCanvas;
+    public modelAnimationController mainCamera;
     public GameObject winCanvas;
     public GameObject winnerText;
 
@@ -139,15 +140,23 @@ public class ScavengerHuntAR : MonoBehaviour
         hintPanel.SetActive(false);
         //turn off the panels ability to turn on for the duration of showing the model
         mainCanvas.GetComponent<HintPanelAnimatorController>().canToggle = false;
-        //ensuring no usage of button
+        //ensuring no usage of hint button
         hintButton.GetComponent<Button>().enabled = false;
+        //set the found model active
         arModels[paramArIndex].SetActive(true);
+        //enable rising animation for model
+        mainCamera.ChangeStateOfAnimator();
         yield return new WaitForSeconds(3.0f);
+        //enable fall animation for model
+        mainCamera.ChangeStateOfAnimator();
+        yield return new WaitForSeconds(2.0f);
+        //turn off model
         arModels[paramArIndex].SetActive(false);
         //enable the hint panel
         hintPanel.SetActive(true);
         //enable the ability to toggle the panel
         mainCanvas.GetComponent<HintPanelAnimatorController>().canToggle = true;
+        //enable the ability to use the hint button again
         hintButton.GetComponent<Button>().enabled = true;
         
     }

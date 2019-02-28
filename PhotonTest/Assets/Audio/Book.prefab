@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4021768667601990}
   - component: {fileID: 33385384656544446}
   - component: {fileID: 23740523463610148}
+  - component: {fileID: 3904592092245381017}
   - component: {fileID: 6448595087632992355}
   m_Layer: 0
   m_Name: Book
@@ -78,6 +79,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &3904592092245381017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209891814944712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2710d9eecd6dc45b5a826c786fc8a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &6448595087632992355
 AudioSource:
   m_ObjectHideFlags: 0
