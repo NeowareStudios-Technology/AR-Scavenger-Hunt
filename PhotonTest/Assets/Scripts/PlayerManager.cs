@@ -24,13 +24,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 
     private PlayerManager[] playerManagers = new PlayerManager[4];
 
-    public GameObject endGameDragonAnimation;
+    //public GameObject endGameDragonAnimation;
     private GameObject winnerText;
-    private GameObject WinCanvas;
-    public bool canFindClues = true;
+    private GameObject winCanvas;
+    private bool canFindClues = true;
     public GameObject gameplayTheme;
     public GameObject storyTheme;
-
+    private GameObject storyCanvas;
+    private GameObject playerNamePanel;
    
 
 
@@ -38,15 +39,25 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     {
 
         game =  GameObject.Find("GameManager").GetComponent<Game>();
-        winnerText = GameObject.Find("WinnerText");
+        
         //winnerText.SetActive(false);
-        endGameDragonAnimation = GameObject.Find("Antler");
-        endGameDragonAnimation.SetActive(false);
+        //endGameDragonAnimation = GameObject.Find("Antler");
+        //endGameDragonAnimation.SetActive(false);
         gameplayTheme = GameObject.Find("GameplayTheme");
-        gameplayTheme.SetActive(false);
+        if (gameplayTheme != null)
+        {
+            gameplayTheme.SetActive(false);
+        }
+        playerNamePanel = GameObject.Find("PlayerNamePanel");
         storyTheme = GameObject.Find("StoryTheme");
-        WinCanvas = GameObject.Find("WinCanvas");
-        WinCanvas.SetActive(false);
+        ScavengerHuntAR scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
+        winnerText = scavengerHuntAr.winnerText;
+        winCanvas = scavengerHuntAr.winCanvas;
+        if (winCanvas != null)
+        {
+            winCanvas.SetActive(false);
+        }
+        storyCanvas = GameObject.Find("StoryandReadyCanvas");
     }
 
     
@@ -56,6 +67,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         if (canFindClues)
         {
             localScore++;
+        }
+
             if (localScore >= 10)
             {
                 StartCoroutine(EndGame());
@@ -64,7 +77,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
             game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
             game.potions[playerUiIndex].GetComponent<Transform>().GetChild(0).GetComponent<Image>().fillAmount = (float)((localScore * 1.0f)/10.0f);
         
-        }
     }
             
     
@@ -135,7 +147,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     {
        
         
-        WinCanvas.SetActive(true);
+        winCanvas.SetActive(true);
         ScavengerHuntAR scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
         scavengerHuntAr.hintPanel.SetActive(false);
         //endGameDragonAnimation.SetActive(true);
@@ -178,10 +190,24 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         
         game.timeStarted = true;
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        GameObject.Find("StartButton").SetActive(false);
-        GameObject.Find("StoryandReadyCanvas").SetActive(false);
-        GameObject.Find("PlayerNamePanel").SetActive(false);
-        gameplayTheme.SetActive(true);
-        storyTheme.SetActive(false);
+        //GameObject.Find("StartButton").SetActive(false);
+        if (storyCanvas != null)
+        {
+            storyCanvas.SetActive(false);
+        }
+        if (playerNamePanel != null)
+        {
+            playerNamePanel.SetActive(false);
+        }
+        
+        if (gameplayTheme != null)
+        {
+            gameplayTheme.SetActive(true);
+        }
+        if (gameplayTheme != null)
+        {
+            storyTheme.SetActive(false);
+        }
+        
     }
 }

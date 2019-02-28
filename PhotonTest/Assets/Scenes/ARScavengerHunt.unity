@@ -1599,7 +1599,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 5499075559111953368, guid: 9a4f26f84e6e116479985bcf696e058d,
+      objectReference: {fileID: 4562039819433236677, guid: 169616771fc4407408304d15e2829e51,
         type: 3}
     - target: {fileID: 114479874574724634, guid: 515a6a7926d45e04fa0412d7af5f59bf,
         type: 3}
@@ -5039,7 +5039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &708154272
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7123,7 +7123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1097669940288778, guid: 51fc13f6d5c296b408a186c0afd93514, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4947769460840412, guid: 51fc13f6d5c296b408a186c0afd93514, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8616,6 +8616,8 @@ MonoBehaviour:
   game: {fileID: 262261280}
   hintPanel: {fileID: 516913840}
   hintButton: {fileID: 706653356}
+  winCanvas: {fileID: 89904876}
+  winnerText: {fileID: 1726386469}
   unlockedTargets: 
 --- !u!4 &1195015359
 Transform:

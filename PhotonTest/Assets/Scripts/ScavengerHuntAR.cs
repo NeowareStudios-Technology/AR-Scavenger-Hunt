@@ -23,6 +23,8 @@ public class ScavengerHuntAR : MonoBehaviour
     public Game game;
     public GameObject hintPanel;
     public GameObject hintButton;
+    public GameObject winCanvas;
+    public GameObject winnerText;
 
     //keeps track of unlocked targets
     public List<int> unlockedTargets = new List<int>();
@@ -86,7 +88,7 @@ public class ScavengerHuntAR : MonoBehaviour
         //enable the hint panel
         hintPanel.SetActive(true);
         //enable the ability to toggle the panel
-        hintButton.GetComponent<HintPanelToggle>().canToggle = false;
+        hintButton.GetComponent<HintPanelToggle>().canToggle = true;
         hintButton.GetComponent<Button>().enabled = true;
         
     }
