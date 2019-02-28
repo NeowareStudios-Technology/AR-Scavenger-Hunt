@@ -45,38 +45,28 @@ public class Launcher : MonoBehaviourPunCallbacks {
             // #Critical
             // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
             PhotonNetwork.AutomaticallySyncScene = true;
+            SetLoadingBarValue(0);
+            loadingBar.gameObject.SetActive(false);
         }
 
-
-        /// <summary>
-        /// MonoBehaviour method called on GameObject by Unity during initialization phase.
-        /// </summary>
-        void Start()
-        {
-            
-           SetLoadingValue(0);
-           SetLoadingBarActive(false);
-
-        }
 
          void Update()
         {
-           SetLoadingValue();
+           SetLoadingBarValue(1);
         }
 
-        private void SetLoadingValue(byte valueToSet = 1)
+        private void SetLoadingBarValue(byte valueToSet = 1)
         {
-            if (valueToSet == 0){
+            if (valueToSet == 0)
+            {
                 loadingBar.value = 0.0f;
             }
-            else {
+            else if (valueToSet == 1)
+            {
                 loadingBar.value = PhotonNetwork.LevelLoadingProgress;
             }
         }
-        private void SetLoadingBarActive(bool turnOn)
-        {
-            loadingBar.gameObject.SetActive(turnOn); 
-        }
+       
 
         #endregion
 
@@ -139,7 +129,6 @@ public class Launcher : MonoBehaviourPunCallbacks {
 
 		public override void OnJoinedRoom()
 		{
-            SetLoadingBarActive(true);
             StartCoroutine(PhotonNetworkLoadLevel());
 			Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
 		}

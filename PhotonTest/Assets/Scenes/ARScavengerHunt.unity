@@ -2885,7 +2885,7 @@ RectTransform:
   m_GameObject: {fileID: 516913840}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.57767725, y: 0.57767725, z: 0.57767725}
+  m_LocalScale: {x: 0.57767725, y: 0.5776772, z: 0.5776772}
   m_Children:
   - {fileID: 628020956}
   - {fileID: 1464885020}
@@ -4798,6 +4798,7 @@ GameObject:
   - component: {fileID: 706653359}
   - component: {fileID: 706653358}
   - component: {fileID: 706653361}
+  - component: {fileID: 706653362}
   m_Layer: 0
   m_Name: HintButton
   m_TagString: Untagged
@@ -4940,6 +4941,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hintPanel: {fileID: 516913840}
   canToggle: 1
+--- !u!95 &706653362
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706653356}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &708154271
 GameObject:
   m_ObjectHideFlags: 0
@@ -6875,6 +6895,7 @@ GameObject:
   - component: {fileID: 1017148856}
   - component: {fileID: 1017148855}
   - component: {fileID: 1017148854}
+  - component: {fileID: 1017148858}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6973,6 +6994,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!95 &1017148858
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017148853}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: daf3723738416ca4383ae82f9f2befec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1019660873
 GameObject:
   m_ObjectHideFlags: 0
