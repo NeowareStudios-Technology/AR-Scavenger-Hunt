@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class Launcher : MonoBehaviourPunCallbacks {
 
@@ -14,7 +15,7 @@ public class Launcher : MonoBehaviourPunCallbacks {
 		[Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
 		[SerializeField]
 		private byte maxPlayersPerRoom = 4;
-
+        public Slider loadingBar;
 
         #endregion
 
@@ -52,9 +53,30 @@ public class Launcher : MonoBehaviourPunCallbacks {
         /// </summary>
         void Start()
         {
-            //Connect();
+            
+           SetLoadingValue(0);
+           SetLoadingBarActive(false);
+
         }
 
+         void Update()
+        {
+           SetLoadingValue();
+        }
+
+        private void SetLoadingValue(byte valueToSet = 1)
+        {
+            if (valueToSet == 0){
+                loadingBar.value = 0.0f;
+            }
+            else {
+                loadingBar.value = PhotonNetwork.LevelLoadingProgress;
+            }
+        }
+        private void SetLoadingBarActive(bool turnOn)
+        {
+            loadingBar.gameObject.SetActive(turnOn); 
+        }
 
         #endregion
 
@@ -117,10 +139,18 @@ public class Launcher : MonoBehaviourPunCallbacks {
 
 		public override void OnJoinedRoom()
 		{
-            PhotonNetwork.LoadLevel("ARScavengerHunt");
+            SetLoadingBarActive(true);
+            StartCoroutine(PhotonNetworkLoadLevel());
 			Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
 		}
-
+        
+        //using IEnum to load on seperate thread
+        private IEnumerator PhotonNetworkLoadLevel(){
+            PhotonNetwork.LoadLevel("ARScavengerHunt");
+            yield return new WaitForSeconds(1.0f);
+        }
+        
+        
 
 		#endregion
 
