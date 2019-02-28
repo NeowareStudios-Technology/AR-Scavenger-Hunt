@@ -44,6 +44,10 @@ public class Game : MonoBehaviourPunCallbacks
 	//we need a player prefab to play the game
 	private void CheckIfPlayerPrefabExists()
 	{
+		if (playerPrefab == null){
+				playerPrefab = (GameObject)Resources.Load("Player", typeof(GameObject));
+				Debug.Log("why the player null tho");
+			}
 		if (playerPrefab == null)
 		{
 			Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'",this);
@@ -66,7 +70,8 @@ public class Game : MonoBehaviourPunCallbacks
 
 	private void InstantiatePlayer()
 	{
-			GameObject GO = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,0f,0f), Quaternion.identity, 0);
+			
+			GameObject GO = PhotonNetwork.Instantiate("Player", new Vector3(0f,0f,0f), Quaternion.identity, 0);
 	}
 
 	//checks if this client is the master client and changes UI accordingly
