@@ -146,7 +146,7 @@ public class ScavengerHuntAR : MonoBehaviour
         arModels[paramArIndex].SetActive(true);
         //enable rising animation for model
         mainCamera.ChangeStateOfAnimator();
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(6.0f);
         //enable fall animation for model
         mainCamera.ChangeStateOfAnimator();
         yield return new WaitForSeconds(2.0f);

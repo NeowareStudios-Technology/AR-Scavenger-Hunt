@@ -36,6 +36,7 @@ public class PlayerNameInputField : MonoBehaviour
 
 		string defaultName = string.Empty;
 		InputField _inputField = this.GetComponent<InputField>();
+		_inputField.characterLimit = 15;
 		if (_inputField!=null)
 		{
 			if (PlayerPrefs.HasKey(playerNamePrefKey))
