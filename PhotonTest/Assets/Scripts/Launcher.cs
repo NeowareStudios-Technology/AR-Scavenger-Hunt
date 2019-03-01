@@ -81,6 +81,8 @@ public class Launcher : MonoBehaviourPunCallbacks {
         /// </summary>
         public void Connect()
         {
+            
+            
             isConnecting = true;
             // we check if we are connected or not, we join if we are , else we initiate the connection to the server.
             if (PhotonNetwork.IsConnected)
