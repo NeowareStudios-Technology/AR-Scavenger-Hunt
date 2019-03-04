@@ -18,6 +18,10 @@ public class Game : MonoBehaviourPunCallbacks
 	public bool[] playerCheck = new bool[] {false, false, false, false};
 	public int[] playerScores = new int[] {0,0,0,0};
 
+	//summary screen UI
+	public GameObject[] playerNamesSummaryScreen = new GameObject[4];
+	public GameObject[] playerScoresSummaryScreen = new GameObject[4];
+
 
 	//timer related
 	public static float timer;
@@ -37,6 +41,7 @@ public class Game : MonoBehaviourPunCallbacks
 	//gamestart related
 	public bool gamestarted = false;
 
+	
 	void Start()
 	{	
 		CheckIfPlayerPrefabExists();
@@ -292,7 +297,31 @@ public class Game : MonoBehaviourPunCallbacks
 			ArePlayersReadyText.text = "Not all players are ready!";
 		}				
 	}
-    
+
+    //handles setting the UI for the summary screen
+	public void SetSummaryScreenText()
+	{
+		StartCoroutine(WaitThenSetSummaryScreenText());
+		
+	}
+	private IEnumerator WaitThenSetSummaryScreenText(){
+		yield return new WaitForSeconds(0.5f);
+		for (int i = 0; i < 3; i++)
+		{
+			if (playerNamesInGame[i].activeInHierarchy)
+			{
+				playerNamesSummaryScreen[i].SetActive(true);
+				playerNamesSummaryScreen[i].GetComponent<Text>().text = playerNamesInGame[i].GetComponent<Text>().text;
+				playerScoresSummaryScreen[i].SetActive(true);
+				playerScoresSummaryScreen[i].GetComponent<Text>().text = playerScores[i].ToString();
+			}
+			else
+			{
+				playerNamesSummaryScreen[i].SetActive(false);
+				playerScoresSummaryScreen[i].SetActive(false);
+			}
+		}
+	}
 	public void SetThisPlayerReady(){
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
 		foreach (PlayerManager x in foundObjects){

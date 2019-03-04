@@ -70,17 +70,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         if (canFindClues)
         {
             localScore++;
+            
             dragonAmbiance.PlayRandomClip(localScore);
         }
 
-            if (localScore >= 10)
-            {
-                StartCoroutine(EndGame());
-            }
-            FindPlayerName();
-            game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
-            game.potions[playerUiIndex].GetComponent<Transform>().GetChild(0).GetComponent<Image>().fillAmount = (float)((localScore * 1.0f)/10.0f);
-        
+        if (localScore >= 10)
+        {
+            StartCoroutine(EndGame());
+        }
+        FindPlayerName();
+        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
+        game.potions[playerUiIndex].GetComponent<Transform>().GetChild(0).GetComponent<Image>().fillAmount = (float)((localScore * 1.0f)/10.0f);
+        game.playerScores[playerUiIndex] = localScore;
     }
             
     
@@ -150,7 +151,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     private IEnumerator EndGame()
     {
        
-        
+        game.SetSummaryScreenText();
         winCanvas.SetActive(true);
         ScavengerHuntAR scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
         scavengerHuntAr.hintPanel.SetActive(false);
