@@ -28,11 +28,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     private GameObject winnerText;
     private GameObject winCanvas;
     private bool canFindClues = true;
-    public GameObject gameplayTheme;
-    public GameObject storyTheme;
     private GameObject storyCanvas;
     private GameObject playerNamePanel;
-   
+
+    //audio references
+    public GameObject gameplayTheme;
+    public GameObject storyTheme;
+    public DragonAmbience dragonAmbiance;
 
 
     void Start()
@@ -58,6 +60,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
             winCanvas.SetActive(false);
         }
         storyCanvas = GameObject.Find("StoryandReadyCanvas");
+        dragonAmbiance = GameObject.Find("DragonAmbience").GetComponent<DragonAmbience>();
     }
 
     
@@ -67,6 +70,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         if (canFindClues)
         {
             localScore++;
+            dragonAmbiance.PlayRandomClip(localScore);
         }
 
             if (localScore >= 10)
@@ -189,6 +193,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 
         
         game.timeStarted = true;
+        game.gamestarted = true;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         //GameObject.Find("StartButton").SetActive(false);
         if (storyCanvas != null)

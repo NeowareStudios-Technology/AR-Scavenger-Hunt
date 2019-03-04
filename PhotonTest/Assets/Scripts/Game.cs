@@ -34,10 +34,14 @@ public class Game : MonoBehaviourPunCallbacks
 	//used by update function
 	GameObject newPlayer;
 
+	//gamestart related
+	public bool gamestarted = false;
+
 	void Start()
 	{	
 		CheckIfPlayerPrefabExists();
-		CheckAndSetMasterClientUi();
+		CheckAndSetMasterClientStartButton();
+		SetActivePlayerReadyText();
 		SetTimeToZero();
 	}
 
@@ -75,13 +79,21 @@ public class Game : MonoBehaviourPunCallbacks
 	}
 
 	//checks if this client is the master client and changes UI accordingly
-	private void CheckAndSetMasterClientUi()
+	private void CheckAndSetMasterClientStartButton()
 	{
-		if (PhotonNetwork.IsMasterClient)
+		if (!gamestarted)
 		{
-			ArePlayersReadyText.gameObject.SetActive(true);
-			startButton.SetActive(true);
+			if (PhotonNetwork.IsMasterClient)
+			{	
+				startButton.SetActive(true);
+			}
 		}
+		
+	}
+
+	private void SetActivePlayerReadyText()
+	{
+		ArePlayersReadyText.gameObject.SetActive(true);
 	}
 
 	void Update()
@@ -89,6 +101,7 @@ public class Game : MonoBehaviourPunCallbacks
 		AssignExistingPlayer();
 		AssignNewPlayer();
 		UpdateTimer();
+		CheckAndSetMasterClientStartButton();
 	}
 
 	//check if players already exist in room, if so set them
@@ -231,6 +244,7 @@ public class Game : MonoBehaviourPunCallbacks
 
 	public override void OnPlayerEnteredRoom(Player other)
 	{
+		SetPlayerReadyText(false);
 		Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
 		if (PhotonNetwork.IsMasterClient)
 		{
@@ -254,16 +268,30 @@ public class Game : MonoBehaviourPunCallbacks
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
 		foreach (PlayerManager pms in foundObjects){
 				if (!pms.isReady){
-					ArePlayersReadyText.text = "Not all players are ready!";
+					SetPlayerReadyText(false);
+					//ArePlayersReadyText.text = "Not all players are ready!";
 					Debug.Log("Not all players are ready!");
 					return;
 				}
 				else{
-					ArePlayersReadyText.text = "All players are ready!";
+					//ArePlayersReadyText.text = "All players are ready!";
+					SetPlayerReadyText(true);
 					pms.gameObject.GetComponent<PhotonView>().RPC("StartButtonClicked", RpcTarget.All);
 				}
 			}
 		}
+
+	public void SetPlayerReadyText(bool playersReady)
+	{
+		if (playersReady)
+		{
+			ArePlayersReadyText.text = "All players are ready!";
+		}
+		else
+		{
+			ArePlayersReadyText.text = "Not all players are ready!";
+		}				
+	}
     
 	public void SetThisPlayerReady(){
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
