@@ -21,6 +21,10 @@ public class Game : MonoBehaviourPunCallbacks
 	//summary screen UI
 	public GameObject[] playerNamesSummaryScreen = new GameObject[4];
 	public GameObject[] playerScoresSummaryScreen = new GameObject[4];
+	int highestScoreIndex = -1;
+	int secondHighestScoreIndex = -1;
+	int thirdHighestScoreIndex = -1;
+	int fourthHighestScoreIndex = -1;
 
 
 	//timer related
@@ -38,9 +42,11 @@ public class Game : MonoBehaviourPunCallbacks
 	//used by update function
 	GameObject newPlayer;
 
-	//gamestart related
+	//used to determine if start button should be enabled
 	public bool gamestarted = false;
 
+	//used for win animation
+	public GameObject potionEndAnimation;
 	
 	void Start()
 	{	
@@ -305,7 +311,165 @@ public class Game : MonoBehaviourPunCallbacks
 		
 	}
 	private IEnumerator WaitThenSetSummaryScreenText(){
+
+		int tempHighScore = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			
+			if (playerScores[i] == null)
+			{
+				
+			}
+			else if (tempHighScore < playerScores[i])
+			{
+				tempHighScore = playerScores[i];
+				Debug.Log("tempHighScore = " + tempHighScore);
+				highestScoreIndex = i;
+			}
+		}
+		//determine second place
+		tempHighScore = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			
+			if (playerScores[i] == null)
+			{
+				
+			}
+			else if (secondHighestScoreIndex < playerScores[i] && highestScoreIndex != i)
+			{
+				tempHighScore = playerScores[i];
+				secondHighestScoreIndex = i;
+			}
+		}
+		//determine third place
+		tempHighScore = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			
+			if (playerScores[i] == null)
+			{
+				
+			}
+			else if (thirdHighestScoreIndex < playerScores[i] && highestScoreIndex != i && secondHighestScoreIndex != i)
+			{
+				tempHighScore = playerScores[i];
+				thirdHighestScoreIndex = i;
+			}
+		}
+		//determine 4th place
+		tempHighScore = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			
+			if (highestScoreIndex != i && secondHighestScoreIndex != i  && thirdHighestScoreIndex != i)
+			{
+				fourthHighestScoreIndex = i;
+			}
+		}
 		yield return new WaitForSeconds(0.5f);
+
+		Debug.Log("highest score index " + highestScoreIndex);
+		Debug.Log("second score index " + secondHighestScoreIndex);
+		Debug.Log("third score index " + thirdHighestScoreIndex);
+		Debug.Log("fourth score index  " + fourthHighestScoreIndex);
+
+		playerNamesSummaryScreen[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[highestScoreIndex].NickName;
+		playerNamesSummaryScreen[0].SetActive(true);
+		playerScoresSummaryScreen[0].GetComponent<Text>().text = playerScores[highestScoreIndex].ToString();
+		playerScoresSummaryScreen[0].SetActive(true);
+
+		if (PhotonNetwork.PlayerList.Length > 1)
+		{
+			playerNamesSummaryScreen[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[secondHighestScoreIndex].NickName;
+			playerNamesSummaryScreen[1].SetActive(true);
+			playerScoresSummaryScreen[1].GetComponent<Text>().text = playerScores[secondHighestScoreIndex].ToString();
+			playerScoresSummaryScreen[1].SetActive(true);
+		}
+		
+		if (PhotonNetwork.PlayerList.Length > 2)
+		{
+			playerNamesSummaryScreen[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[thirdHighestScoreIndex].NickName;
+			playerNamesSummaryScreen[2].SetActive(true);
+			playerScoresSummaryScreen[2].GetComponent<Text>().text = playerScores[thirdHighestScoreIndex].ToString();
+			playerScoresSummaryScreen[2].SetActive(true);
+		}
+
+		if (PhotonNetwork.PlayerList.Length > 3)
+		{
+			playerNamesSummaryScreen[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[fourthHighestScoreIndex].NickName;
+			playerNamesSummaryScreen[3].SetActive(true);
+			playerScoresSummaryScreen[3].GetComponent<Text>().text = playerScores[fourthHighestScoreIndex].ToString();
+			playerScoresSummaryScreen[3].SetActive(true);
+
+		}
+		
+		/* 
+		switch (PhotonNetwork.PlayerList.Length)
+		{
+			case(1):
+				//only set 1 player ui active
+				playerNamesSummaryScreen[0].SetActive(true);
+				playerNamesSummaryScreen[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[highestScoreIndex].NickName;
+				playerScoresSummaryScreen[0].SetActive(true);
+				playerScoresSummaryScreen[0].GetComponent<Text>().text = playerScores[highestScoreIndex].ToString();
+				break;
+			case(2):
+
+				playerNamesSummaryScreen[0].SetActive(true);
+				playerNamesSummaryScreen[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[highestScoreIndex].NickName;
+				playerScoresSummaryScreen[0].SetActive(true);
+				playerScoresSummaryScreen[0].GetComponent<Text>().text = playerScores[highestScoreIndex].ToString();
+
+				playerNamesSummaryScreen[1].SetActive(true);
+				playerNamesSummaryScreen[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[secondHighestScoreIndex].NickName;
+				playerScoresSummaryScreen[1].SetActive(true);
+				playerScoresSummaryScreen[1].GetComponent<Text>().text = playerScores[secondHighestScoreIndex].ToString();
+				break;
+			case(3):
+
+				playerNamesSummaryScreen[0].SetActive(true);
+				playerNamesSummaryScreen[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[highestScoreIndex].NickName;
+				playerScoresSummaryScreen[0].SetActive(true);
+				playerScoresSummaryScreen[0].GetComponent<Text>().text = playerScores[highestScoreIndex].ToString();
+
+				playerNamesSummaryScreen[1].SetActive(true);
+				playerNamesSummaryScreen[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[secondHighestScoreIndex].NickName;
+				playerScoresSummaryScreen[1].SetActive(true);
+				playerScoresSummaryScreen[1].GetComponent<Text>().text = playerScores[secondHighestScoreIndex].ToString();
+
+				playerNamesSummaryScreen[2].SetActive(true);
+				playerNamesSummaryScreen[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[thirdHighestScoreIndex].NickName;
+				playerScoresSummaryScreen[2].SetActive(true);
+				playerScoresSummaryScreen[2].GetComponent<Text>().text = playerScores[thirdHighestScoreIndex].ToString();
+				break;
+			case(4):
+
+				playerNamesSummaryScreen[0].SetActive(true);
+				playerNamesSummaryScreen[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[highestScoreIndex].NickName;
+				playerScoresSummaryScreen[0].SetActive(true);
+				playerScoresSummaryScreen[0].GetComponent<Text>().text = playerScores[highestScoreIndex].ToString();
+
+				playerNamesSummaryScreen[1].SetActive(true);
+				playerNamesSummaryScreen[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[secondHighestScoreIndex].NickName;
+				playerScoresSummaryScreen[1].SetActive(true);
+				playerScoresSummaryScreen[1].GetComponent<Text>().text = playerScores[secondHighestScoreIndex].ToString();
+
+				playerNamesSummaryScreen[2].SetActive(true);
+				playerNamesSummaryScreen[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[thirdHighestScoreIndex].NickName;
+				playerScoresSummaryScreen[2].SetActive(true);
+				playerScoresSummaryScreen[2].GetComponent<Text>().text = playerScores[thirdHighestScoreIndex].ToString();
+
+				playerNamesSummaryScreen[3].SetActive(true);
+				playerNamesSummaryScreen[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[fourthHighestScoreIndex].NickName;
+				playerScoresSummaryScreen[3].SetActive(true);
+				playerScoresSummaryScreen[3].GetComponent<Text>().text = playerScores[fourthHighestScoreIndex].ToString();
+
+				break;
+		}
+		*/
+
+/* 
 		for (int i = 0; i < 3; i++)
 		{
 			if (playerNamesInGame[i].activeInHierarchy)
@@ -321,6 +485,7 @@ public class Game : MonoBehaviourPunCallbacks
 				playerScoresSummaryScreen[i].SetActive(false);
 			}
 		}
+		*/
 	}
 	public void SetThisPlayerReady(){
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();

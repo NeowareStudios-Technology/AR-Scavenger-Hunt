@@ -150,11 +150,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 
     private IEnumerator EndGame()
     {
-       
-        game.SetSummaryScreenText();
-        winCanvas.SetActive(true);
+        game.potionEndAnimation.SetActive(true);
         ScavengerHuntAR scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
         scavengerHuntAr.hintPanel.SetActive(false);
+        yield return new WaitForSeconds(6.0f);
+        game.SetSummaryScreenText();
+        winCanvas.SetActive(true);
+        
+        
         //endGameDragonAnimation.SetActive(true);
        
         //endGameDragonAnimation.SetActive(false);
