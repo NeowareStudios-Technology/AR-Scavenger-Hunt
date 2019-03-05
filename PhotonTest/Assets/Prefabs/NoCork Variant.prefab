@@ -40,6 +40,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoopSprayEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013488956786, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -178,7 +182,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: bed49881cc07b43a28bd19b727df41d6, type: 3}
       propertyPath: m_Name
-      value: NoCork
+      value: NoCork Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bed49881cc07b43a28bd19b727df41d6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -248,6 +252,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[5]
       value: 
       objectReference: {fileID: 2100000, guid: cb1a088c4a4524509baea75489e118e4, type: 2}
+    - target: {fileID: 2300000, guid: bed49881cc07b43a28bd19b727df41d6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bed49881cc07b43a28bd19b727df41d6, type: 3}
 --- !u!1 &8265507680270074219 stripped
