@@ -438,6 +438,7 @@ public class Game : MonoBehaviourPunCallbacks
 		}
 		
 	}
+	
 	public void SetThisPlayerReady(){
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
 		foreach (PlayerManager x in foundObjects){

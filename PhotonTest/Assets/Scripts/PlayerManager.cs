@@ -6,7 +6,8 @@ using Photon.Pun;
 using Photon.Realtime;
 
 
-public class PlayerManager : MonoBehaviourPunCallbacks {
+public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
+{
     
 
     //Number of clues found by player
@@ -39,6 +40,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     //hint panel reference
     ScavengerHuntAR scavengerHuntAr;
 
+    // used as Observed component in a PhotonView, this only reads/writes the position
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(isReady);
+        }
+        else
+        {
+            this.isReady = (bool)stream.ReceiveNext();
+        }
+    }
 
     void Start()
     {
