@@ -107,7 +107,7 @@ public class ScavengerHuntAR : MonoBehaviour
             //unlockedTargets.Clear();
             //Set hint text to complete text, go away
             //hintText.text = shComplete;
-            
+            StartCoroutine(SpawnFoundObject(arIndex));
             return;
         }
         

@@ -168,10 +168,19 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private IEnumerator EndGame()
     {
-        game.SetSummaryScreenTime();
+        
+        /* 
+        yield return new WaitForSeconds(10.0f);
+        foreach (Transform child in game.GetComponent<Transform>())
+        {
+            child.gameObject.SetActive(false);
+        }
         game.potionEndAnimation.SetActive(true);
+        */
+        game.SetSummaryScreenTime();
+        
         scavengerHuntAr.hintPanel.SetActive(false);
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(8.0f);
         winnerText.GetComponent<Text>().text = playerName + " won the game!";
         game.SetSummaryScreenText();
         winCanvas.SetActive(true);

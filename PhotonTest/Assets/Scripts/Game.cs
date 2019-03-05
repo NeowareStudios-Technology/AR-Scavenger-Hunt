@@ -49,6 +49,8 @@ public class Game : MonoBehaviourPunCallbacks
 
 	//used for win animation
 	public GameObject potionEndAnimation;
+	public GameObject modelHolder;
+
 	
 	void Start()
 	{	
@@ -438,7 +440,7 @@ public class Game : MonoBehaviourPunCallbacks
 		}
 		
 	}
-	
+
 	public void SetThisPlayerReady(){
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
 		foreach (PlayerManager x in foundObjects){
