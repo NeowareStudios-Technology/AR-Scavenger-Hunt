@@ -33,6 +33,8 @@ public class Game : MonoBehaviourPunCallbacks
 	int minutes;
 	int seconds;
 	string niceTime;
+	private DateTime startingDateTime;
+	public GameObject timeSummaryScreen;
 
 	//UI related
 	public Text ArePlayersReadyText;
@@ -54,6 +56,7 @@ public class Game : MonoBehaviourPunCallbacks
 		CheckAndSetMasterClientStartButton();
 		SetActivePlayerReadyText();
 		SetTimeToZero();
+		
 	}
 
 	//we need a player prefab to play the game
@@ -81,6 +84,14 @@ public class Game : MonoBehaviourPunCallbacks
 	{
 		yield return new WaitForSeconds(0.25f);
 		InstantiatePlayer();
+		yield return new WaitForSeconds(0.25f);
+		SetPlayerReadyText(false);
+	}
+
+	private IEnumerator DelayedSetPlayerReadyText()
+	{
+		yield return new WaitForSeconds(1.0f);
+		SetPlayerReadyText(false);
 	}
 
 	private void InstantiatePlayer()
@@ -113,6 +124,7 @@ public class Game : MonoBehaviourPunCallbacks
 		AssignNewPlayer();
 		UpdateTimer();
 		CheckAndSetMasterClientStartButton();
+		
 	}
 
 	//check if players already exist in room, if so set them
@@ -165,7 +177,7 @@ public class Game : MonoBehaviourPunCallbacks
 			}
 		}
 
-		if (playerCheck[2] == false)
+		if (playerCheck[3] == false)
 		{
 			newPlayer = GameObject.Find("player4");
 			if(newPlayer != null)
@@ -207,7 +219,7 @@ public class Game : MonoBehaviourPunCallbacks
 				playerInfo[1].SetActive(true);
 				potions[1].SetActive(true);
 				playerNamesInGame[1].SetActive(true);
-				playerNamesInGame[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
+				playerNamesInGame[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[1].NickName;
 			}
 			else if (players[2] == null)
 			{
@@ -218,7 +230,7 @@ public class Game : MonoBehaviourPunCallbacks
 				playerInfo[2].SetActive(true);
 				potions[2].SetActive(true);
 				playerNamesInGame[2].SetActive(true);
-				playerNamesInGame[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
+				playerNamesInGame[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[2].NickName;
 			}
 			else if (players[3] == null)
 			{
@@ -229,7 +241,7 @@ public class Game : MonoBehaviourPunCallbacks
 				playerInfo[3].SetActive(true);
 				potions[3].SetActive(true);
 				playerNamesInGame[3].SetActive(true);
-				playerNamesInGame[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
+				playerNamesInGame[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[3].NickName;
 			}
 		}
 	}
@@ -241,59 +253,76 @@ public class Game : MonoBehaviourPunCallbacks
 
 	private void UpdateTimer()
 	{
-		if (timeStarted == true) 
+		if (timeStarted == false)
 		{
-			timer += Time.deltaTime;
+			startingDateTime = DateTime.Now;
+		}
+		else if (timeStarted == true) 
+		{		
+			System.TimeSpan timeDifference = DateTime.Now.Subtract(startingDateTime);
+			string output = string.Format("{0}:{1:00}", (int)timeDifference.TotalMinutes, timeDifference.Seconds);
+			timerUi.text = output;
 		}       
+		
+	}
 
-		int minutes = Mathf.FloorToInt(timer / 60F);
-		int seconds = Mathf.FloorToInt(timer - minutes * 60);
-		string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
-		timerUi.text = niceTime;
+	public void SetSummaryScreenTime()
+	{
+		System.TimeSpan timeDifference = DateTime.Now.Subtract(startingDateTime);
+		string output = string.Format("{0}:{1:00}", (int)timeDifference.TotalMinutes, timeDifference.Seconds);
+		timeSummaryScreen.GetComponent<Text>().text = output;
 	}
 
 
 	public override void OnPlayerEnteredRoom(Player other)
 	{
-		SetPlayerReadyText(false);
 		Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
 		if (PhotonNetwork.IsMasterClient)
 		{
 			Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
 		}
+		StartCoroutine(DelayedSetPlayerReadyText());
 	}
 
 
-	public void IncrementScore(){
+	public void IncrementScore()
+	{
+
 		PhotonView[] foundObjects = FindObjectsOfType<PhotonView>();
-		foreach (PhotonView x in foundObjects){
-			Debug.Log("Length of FoundObjects = " + foundObjects.Length);
-			if (x.IsMine){
-				Debug.Log("This many objects are 'Mine'");
+
+		foreach (PhotonView x in foundObjects)
+		{
+			if (x.IsMine)
+			{
 				x.RPC("ButtonClicked", RpcTarget.All);
 			}
 		}
 	}
 
-	public void StartIfAllPlayersAreReady(){
+	public void StartIfAllPlayersAreReady()
+	{
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
+
 		foreach (PlayerManager pms in foundObjects){
+
 				if (!pms.isReady){
-					SetPlayerReadyText(false);
-					//ArePlayersReadyText.text = "Not all players are ready!";
-					Debug.Log("Not all players are ready!");
+
+					SetPlayerReadyText(false);	
 					return;
+
 				}
 				else{
-					//ArePlayersReadyText.text = "All players are ready!";
+
 					SetPlayerReadyText(true);
 					pms.gameObject.GetComponent<PhotonView>().RPC("StartButtonClicked", RpcTarget.All);
+
 				}
 			}
 		}
 
 	public void SetPlayerReadyText(bool playersReady)
 	{
+		
 		if (playersReady)
 		{
 			ArePlayersReadyText.text = "All players are ready!";
@@ -301,7 +330,8 @@ public class Game : MonoBehaviourPunCallbacks
 		else
 		{
 			ArePlayersReadyText.text = "Not all players are ready!";
-		}				
+		}	
+				
 	}
 
     //handles setting the UI for the summary screen
@@ -310,7 +340,9 @@ public class Game : MonoBehaviourPunCallbacks
 		StartCoroutine(WaitThenSetSummaryScreenText());
 		
 	}
-	private IEnumerator WaitThenSetSummaryScreenText(){
+
+	private IEnumerator WaitThenSetSummaryScreenText()
+	{
 
 		int tempHighScore = 0;
 		for (int i = 0; i < 4; i++)
@@ -327,6 +359,7 @@ public class Game : MonoBehaviourPunCallbacks
 				highestScoreIndex = i;
 			}
 		}
+
 		//determine second place
 		tempHighScore = 0;
 		for (int i = 0; i < 4; i++)
@@ -336,7 +369,7 @@ public class Game : MonoBehaviourPunCallbacks
 			{
 				
 			}
-			else if (secondHighestScoreIndex < playerScores[i] && highestScoreIndex != i)
+			else if (tempHighScore < playerScores[i] && highestScoreIndex != i)
 			{
 				tempHighScore = playerScores[i];
 				secondHighestScoreIndex = i;
@@ -351,7 +384,7 @@ public class Game : MonoBehaviourPunCallbacks
 			{
 				
 			}
-			else if (thirdHighestScoreIndex < playerScores[i] && highestScoreIndex != i && secondHighestScoreIndex != i)
+			else if (tempHighScore < playerScores[i] && highestScoreIndex != i && secondHighestScoreIndex != i)
 			{
 				tempHighScore = playerScores[i];
 				thirdHighestScoreIndex = i;
@@ -404,88 +437,6 @@ public class Game : MonoBehaviourPunCallbacks
 
 		}
 		
-		/* 
-		switch (PhotonNetwork.PlayerList.Length)
-		{
-			case(1):
-				//only set 1 player ui active
-				playerNamesSummaryScreen[0].SetActive(true);
-				playerNamesSummaryScreen[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[highestScoreIndex].NickName;
-				playerScoresSummaryScreen[0].SetActive(true);
-				playerScoresSummaryScreen[0].GetComponent<Text>().text = playerScores[highestScoreIndex].ToString();
-				break;
-			case(2):
-
-				playerNamesSummaryScreen[0].SetActive(true);
-				playerNamesSummaryScreen[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[highestScoreIndex].NickName;
-				playerScoresSummaryScreen[0].SetActive(true);
-				playerScoresSummaryScreen[0].GetComponent<Text>().text = playerScores[highestScoreIndex].ToString();
-
-				playerNamesSummaryScreen[1].SetActive(true);
-				playerNamesSummaryScreen[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[secondHighestScoreIndex].NickName;
-				playerScoresSummaryScreen[1].SetActive(true);
-				playerScoresSummaryScreen[1].GetComponent<Text>().text = playerScores[secondHighestScoreIndex].ToString();
-				break;
-			case(3):
-
-				playerNamesSummaryScreen[0].SetActive(true);
-				playerNamesSummaryScreen[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[highestScoreIndex].NickName;
-				playerScoresSummaryScreen[0].SetActive(true);
-				playerScoresSummaryScreen[0].GetComponent<Text>().text = playerScores[highestScoreIndex].ToString();
-
-				playerNamesSummaryScreen[1].SetActive(true);
-				playerNamesSummaryScreen[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[secondHighestScoreIndex].NickName;
-				playerScoresSummaryScreen[1].SetActive(true);
-				playerScoresSummaryScreen[1].GetComponent<Text>().text = playerScores[secondHighestScoreIndex].ToString();
-
-				playerNamesSummaryScreen[2].SetActive(true);
-				playerNamesSummaryScreen[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[thirdHighestScoreIndex].NickName;
-				playerScoresSummaryScreen[2].SetActive(true);
-				playerScoresSummaryScreen[2].GetComponent<Text>().text = playerScores[thirdHighestScoreIndex].ToString();
-				break;
-			case(4):
-
-				playerNamesSummaryScreen[0].SetActive(true);
-				playerNamesSummaryScreen[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[highestScoreIndex].NickName;
-				playerScoresSummaryScreen[0].SetActive(true);
-				playerScoresSummaryScreen[0].GetComponent<Text>().text = playerScores[highestScoreIndex].ToString();
-
-				playerNamesSummaryScreen[1].SetActive(true);
-				playerNamesSummaryScreen[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[secondHighestScoreIndex].NickName;
-				playerScoresSummaryScreen[1].SetActive(true);
-				playerScoresSummaryScreen[1].GetComponent<Text>().text = playerScores[secondHighestScoreIndex].ToString();
-
-				playerNamesSummaryScreen[2].SetActive(true);
-				playerNamesSummaryScreen[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[thirdHighestScoreIndex].NickName;
-				playerScoresSummaryScreen[2].SetActive(true);
-				playerScoresSummaryScreen[2].GetComponent<Text>().text = playerScores[thirdHighestScoreIndex].ToString();
-
-				playerNamesSummaryScreen[3].SetActive(true);
-				playerNamesSummaryScreen[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[fourthHighestScoreIndex].NickName;
-				playerScoresSummaryScreen[3].SetActive(true);
-				playerScoresSummaryScreen[3].GetComponent<Text>().text = playerScores[fourthHighestScoreIndex].ToString();
-
-				break;
-		}
-		*/
-
-/* 
-		for (int i = 0; i < 3; i++)
-		{
-			if (playerNamesInGame[i].activeInHierarchy)
-			{
-				playerNamesSummaryScreen[i].SetActive(true);
-				playerNamesSummaryScreen[i].GetComponent<Text>().text = playerNamesInGame[i].GetComponent<Text>().text;
-				playerScoresSummaryScreen[i].SetActive(true);
-				playerScoresSummaryScreen[i].GetComponent<Text>().text = playerScores[i].ToString();
-			}
-			else
-			{
-				playerNamesSummaryScreen[i].SetActive(false);
-				playerScoresSummaryScreen[i].SetActive(false);
-			}
-		}
-		*/
 	}
 	public void SetThisPlayerReady(){
 		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
@@ -497,6 +448,8 @@ public class Game : MonoBehaviourPunCallbacks
 			}
 		}
 	}
+
+	
 
 	public void LeaveRoom()
 	{

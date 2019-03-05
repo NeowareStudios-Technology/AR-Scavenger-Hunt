@@ -36,12 +36,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
     public GameObject storyTheme;
     public DragonAmbience dragonAmbiance;
 
+    //hint panel reference
+    ScavengerHuntAR scavengerHuntAr;
+
 
     void Start()
     {
 
         game =  GameObject.Find("GameManager").GetComponent<Game>();
-        
+        scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
         //winnerText.SetActive(false);
         //endGameDragonAnimation = GameObject.Find("Antler");
         //endGameDragonAnimation.SetActive(false);
@@ -52,7 +55,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
         }
         playerNamePanel = GameObject.Find("PlayerNamePanel");
         storyTheme = GameObject.Find("StoryTheme");
-        ScavengerHuntAR scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
         winnerText = scavengerHuntAr.winnerText;
         winCanvas = scavengerHuntAr.winCanvas;
         if (winCanvas != null)
@@ -133,13 +135,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 
         foreach (PlayerManager playerManager in playerManagers)
         {
+            
             if (!playerManager.isReady)
             {
-                game.ArePlayersReadyText.text = "not all players are ready!";
+                Debug.Log("this many player manager are not ready!");
+                game.ArePlayersReadyText.text = "Not all players are ready!";
                 return;
             }
             else
             {
+                Debug.Log("this many player manager are ready");
                 game.ArePlayersReadyText.text = "All players are ready!";
             }
         }
@@ -150,23 +155,22 @@ public class PlayerManager : MonoBehaviourPunCallbacks {
 
     private IEnumerator EndGame()
     {
+        game.SetSummaryScreenTime();
         game.potionEndAnimation.SetActive(true);
-        ScavengerHuntAR scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
         scavengerHuntAr.hintPanel.SetActive(false);
-        yield return new WaitForSeconds(6.0f);
+        yield return new WaitForSeconds(4.0f);
+        winnerText.GetComponent<Text>().text = playerName + " won the game!";
         game.SetSummaryScreenText();
         winCanvas.SetActive(true);
-        
-        
-        //endGameDragonAnimation.SetActive(true);
-       
-        //endGameDragonAnimation.SetActive(false);
-        winnerText.GetComponent<Text>().text = playerName + " won the game!";
-        yield return new WaitForSeconds(1.0f);
-        //game.LeaveRoom();
+
     }
 
+    private IEnumerator WaitThenSetHintPanelActive()
+    {
+        yield return new WaitForSeconds(6.0f);
+        scavengerHuntAr.hintPanel.SetActive(true);
 
+    }
     public void SetPlayerNameUI()
     {
                 
