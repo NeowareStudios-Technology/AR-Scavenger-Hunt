@@ -33,6 +33,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private GameObject playerNamePanel;
 
     //audio references
+    private AudioReferences audioReferences;
     public GameObject gameplayTheme;
     public GameObject storyTheme;
     public DragonAmbience dragonAmbiance;
@@ -55,7 +56,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     void Start()
     {
-
+        audioReferences = GameObject.Find("AudioReferences").GetComponent<AudioReferences>();
         game =  GameObject.Find("GameManager").GetComponent<Game>();
         scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
         //winnerText.SetActive(false);
@@ -169,22 +170,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private IEnumerator EndGame()
     {
         
-        /* 
-        yield return new WaitForSeconds(10.0f);
-        foreach (Transform child in game.GetComponent<Transform>())
-        {
-            child.gameObject.SetActive(false);
-        }
-        game.potionEndAnimation.SetActive(true);
-        */
         game.SetSummaryScreenTime();
-        
         scavengerHuntAr.hintPanel.SetActive(false);
-        yield return new WaitForSeconds(8.0f);
-        winnerText.GetComponent<Text>().text = playerName + " won the game!";
+        winnerText.GetComponent<Text>().text = playerName + " has made the hero’s brew! The dragon has been put into a deep slumber.";
         game.SetSummaryScreenText();
+
+        yield return new WaitForSeconds(8.0f);
         winCanvas.SetActive(true);
 
+        //setting the win audio on here
+        //turning off the win audio soon after when player hits the "Next" button on the win canvas
+        audioReferences.gameplayTheme.SetActive(false);
+        audioReferences.winAudio.SetActive(true);
     }
 
     private IEnumerator WaitThenSetHintPanelActive()
