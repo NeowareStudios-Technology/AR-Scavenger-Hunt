@@ -53,7 +53,47 @@ public class ScavengerHuntAR : MonoBehaviour
     }
 
     private void SetHintText(){
-        
+        //antlers
+        hints[0, 0] = "I am a trophy for some, but for others I can be the key ingredient with the right tools to crush me. You will find me in the large room where everyone meets, at the place where you stand and speak";
+        hints[0, 1] = "";
+        hints[0, 2] = "";
+        //ashes
+        hints[1, 0] = "From fire I am born. When touched I turn your fingers silvery, grey. You will find me in the large room where everyone meets, on the wall incase of an emergency";
+        hints[1, 1] = "I am the end of a Phoenix living, leaving me behind in order to create his next life. You will find me in the room where everyone meets, on the wall incase of an emergency";
+        hints[1, 2] = 
+        //dagger
+        hints[2, 0] = "I have a hilt to hold and sharp edges for you to cut what you will need. You will find me in the lobby on the orange cone";
+        hints[2, 1] = "";
+        hints[2, 2] = "";
+        //book
+        hints[3, 0] = "I have no voice and yet I speak to you, I tell of all things in the world that people do. I have a spine and hinges, but I am not a man or a door. I am in the lobby and I was created from this";
+        hints[3, 1] = "I have leaves, but I am not a tree, I have pages, but I am not a bride or royalty. I am in the lobby and I was created from this";
+        hints[3, 2] = 
+        //egg        
+        hints[4, 0] = "I cannot be used until I am broken. I am on the fridge in the breakroom";
+        hints[4, 1] = "A box without no opening, yet golden treasure is hidden inside. I am on the fridge in the breakroom";
+        hints[4, 2] = 
+        //diamond
+        hints[5, 0] = "Sometimes called a rock, but I am often worth a great deal. A bauble or a precious stone, so tempting for some to steal. I am in the hall where you walk, chillin with Boss Ross";
+        hints[5, 1] = "I am a thing that is treasured, worthless or valuable and thus guarded by the most dangerous of creatures. I am in the hall where you walk, chillin with Boss Ross";
+        hints[5, 2] = 
+        //mortar pestle
+        hints[6, 0] = "Separate I am useless but together I can crush ingredients into powder. I am in the hall where you drink water for free";
+        hints[6, 1] = 
+        hints[6, 2] = "";
+        //mushroom
+        hints[7, 0] = "I am a type of room you cannot enter or leave. Raised from the ground below, I could be poisonous or a delicious treat. In the large room where everyone meets, on an office chair";
+        hints[7, 1] = 
+        hints[7, 2] = 
+        //potion bottle
+        hints[8, 0] = "You will need to use me to contain the strength to put the dragon into his slumber. I am in the hall where you extinguish fire";
+        hints[8, 1] =
+        hints[8, 2] = 
+        //snake venom
+        hints[9, 0] = "If I am removed from my host, he will become safe to the touch. I am in the lobby on the mini fridge, don't confuse me for a drink";
+        hints[9, 1] = 
+        hints[9, 2] = "";
+        /*
         //antlers
         hints[0,0] = "I am a trophy for some, but for others I can be the key ingredient with the right tools to crush me. (Insert line about where it is located in the real world)"; 
         hints[0,1] = "I am a trophy only obtainable by the most skilled of hunter";
@@ -94,6 +134,7 @@ public class ScavengerHuntAR : MonoBehaviour
         hints[9,0] = "If I am removed from my host, he will become safe to the touch. (Insert line about where it is located in the real world)";
         hints[9,1] = " come from the most dangerous of serpents. One unaltered drop could be fatal. (Insert line about where it is located in the real wo";
         hints[9,2] = "";
+        */
     }
     //randomly unlock next target
     public void UnlockNextTarget()
