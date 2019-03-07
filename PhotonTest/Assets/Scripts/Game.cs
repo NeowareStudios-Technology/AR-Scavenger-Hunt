@@ -13,10 +13,12 @@ public class Game : MonoBehaviourPunCallbacks
 	public GameObject playerPrefab;
 	public GameObject[] players = new GameObject[] {null, null, null, null};
 	public GameObject[] playerInfo = new GameObject[4];
+	
 	public GameObject[] playerNamesInGame = new GameObject[4];
 	public GameObject[] potions = new GameObject[4];
 	public bool[] playerCheck = new bool[] {false, false, false, false};
 	public int[] playerScores = new int[] {0,0,0,0};
+	public string[] playerNames = new string[4] {"", "", "", ""};
 
 	//summary screen UI
 	public GameObject[] playerNamesSummaryScreen = new GameObject[4];
@@ -147,6 +149,7 @@ public class Game : MonoBehaviourPunCallbacks
 				playerNamesInGame[0].SetActive(true);
 				playerNamesInGame[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
 				playerInfo[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName + " has joined the quest!";
+				playerNames[0] = PhotonNetwork.PlayerList[0].NickName;
 				
 			}
 		}
@@ -163,6 +166,8 @@ public class Game : MonoBehaviourPunCallbacks
 				playerInfo[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[1].NickName + " has joined the quest!";
 				playerNamesInGame[1].SetActive(true);
 				playerNamesInGame[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[1].NickName;
+				playerNames[1] = PhotonNetwork.PlayerList[1].NickName;
+
 			}
 		}
 
@@ -178,6 +183,8 @@ public class Game : MonoBehaviourPunCallbacks
 				playerInfo[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[2].NickName + " has joined the quest!";
 				playerNamesInGame[2].SetActive(true);
 				playerNamesInGame[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[2].NickName;
+				playerNames[2] = PhotonNetwork.PlayerList[2].NickName;
+
 			}
 		}
 
@@ -193,6 +200,8 @@ public class Game : MonoBehaviourPunCallbacks
 				playerInfo[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[3].NickName + " has joined the quest!";
 				playerNamesInGame[3].SetActive(true);
 				playerNamesInGame[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[3].NickName;
+				playerNames[3] = PhotonNetwork.PlayerList[3].NickName;
+
 			}
 		}
 	}
@@ -213,6 +222,8 @@ public class Game : MonoBehaviourPunCallbacks
 				potions[0].SetActive(true);
 				playerNamesInGame[0].SetActive(true);
 				playerNamesInGame[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[0].NickName;
+				playerNames[0] = PhotonNetwork.PlayerList[0].NickName;
+
 			}
 			else if (players[1] == null)
 			{
@@ -224,6 +235,8 @@ public class Game : MonoBehaviourPunCallbacks
 				potions[1].SetActive(true);
 				playerNamesInGame[1].SetActive(true);
 				playerNamesInGame[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[1].NickName;
+				playerNames[1] = PhotonNetwork.PlayerList[1].NickName;
+
 			}
 			else if (players[2] == null)
 			{
@@ -235,6 +248,8 @@ public class Game : MonoBehaviourPunCallbacks
 				potions[2].SetActive(true);
 				playerNamesInGame[2].SetActive(true);
 				playerNamesInGame[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[2].NickName;
+				playerNames[2] = PhotonNetwork.PlayerList[2].NickName;
+
 			}
 			else if (players[3] == null)
 			{
@@ -246,6 +261,8 @@ public class Game : MonoBehaviourPunCallbacks
 				potions[3].SetActive(true);
 				playerNamesInGame[3].SetActive(true);
 				playerNamesInGame[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[3].NickName;
+				playerNames[3] = PhotonNetwork.PlayerList[3].NickName;
+
 			}
 		}
 	}
@@ -412,14 +429,15 @@ public class Game : MonoBehaviourPunCallbacks
 		Debug.Log("third score index " + thirdHighestScoreIndex);
 		Debug.Log("fourth score index  " + fourthHighestScoreIndex);
 
-		playerNamesSummaryScreen[0].GetComponent<Text>().text = PhotonNetwork.PlayerList[highestScoreIndex].NickName;
+		
+		playerNamesSummaryScreen[0].GetComponent<Text>().text = playerNames[highestScoreIndex];
 		playerNamesSummaryScreen[0].SetActive(true);
 		playerScoresSummaryScreen[0].GetComponent<Text>().text = playerScores[highestScoreIndex].ToString();
 		playerScoresSummaryScreen[0].SetActive(true);
 
 		if (PhotonNetwork.PlayerList.Length > 1)
 		{
-			playerNamesSummaryScreen[1].GetComponent<Text>().text = PhotonNetwork.PlayerList[secondHighestScoreIndex].NickName;
+			playerNamesSummaryScreen[1].GetComponent<Text>().text = playerNames[secondHighestScoreIndex];
 			playerNamesSummaryScreen[1].SetActive(true);
 			playerScoresSummaryScreen[1].GetComponent<Text>().text = playerScores[secondHighestScoreIndex].ToString();
 			playerScoresSummaryScreen[1].SetActive(true);
@@ -427,7 +445,7 @@ public class Game : MonoBehaviourPunCallbacks
 		
 		if (PhotonNetwork.PlayerList.Length > 2)
 		{
-			playerNamesSummaryScreen[2].GetComponent<Text>().text = PhotonNetwork.PlayerList[thirdHighestScoreIndex].NickName;
+			playerNamesSummaryScreen[2].GetComponent<Text>().text = playerNames[thirdHighestScoreIndex];
 			playerNamesSummaryScreen[2].SetActive(true);
 			playerScoresSummaryScreen[2].GetComponent<Text>().text = playerScores[thirdHighestScoreIndex].ToString();
 			playerScoresSummaryScreen[2].SetActive(true);
@@ -435,7 +453,7 @@ public class Game : MonoBehaviourPunCallbacks
 
 		if (PhotonNetwork.PlayerList.Length > 3)
 		{
-			playerNamesSummaryScreen[3].GetComponent<Text>().text = PhotonNetwork.PlayerList[fourthHighestScoreIndex].NickName;
+			playerNamesSummaryScreen[3].GetComponent<Text>().text = playerNames[fourthHighestScoreIndex];
 			playerNamesSummaryScreen[3].SetActive(true);
 			playerScoresSummaryScreen[3].GetComponent<Text>().text = playerScores[fourthHighestScoreIndex].ToString();
 			playerScoresSummaryScreen[3].SetActive(true);
@@ -492,6 +510,8 @@ public class Game : MonoBehaviourPunCallbacks
 			potions[0].SetActive(false);
 			playerNamesInGame[0].SetActive(false);
 			playerNamesInGame[0].GetComponent<Text>().text = "";
+			playerNames[0] = "";
+
 
 			if (GameObject.Find("player2") != null)
 				players[1].GetComponent<PlayerManager>().playerIndex --;
@@ -508,6 +528,7 @@ public class Game : MonoBehaviourPunCallbacks
 			potions[1].SetActive(false);
 			playerNamesInGame[1].SetActive(false);
 			playerNamesInGame[1].GetComponent<Text>().text = "";
+			playerNames[1] = "";
 
 			if (GameObject.Find("player3") != null)
 				players[2].GetComponent<PlayerManager>().playerIndex --;
@@ -522,6 +543,7 @@ public class Game : MonoBehaviourPunCallbacks
 			potions[2].SetActive(false);
 			playerNamesInGame[2].SetActive(false);
 			playerNamesInGame[2].GetComponent<Text>().text = "";
+			playerNames[2] = "";
 
 			if (GameObject.Find("player4") != null)
 				players[3].GetComponent<PlayerManager>().playerIndex --;
@@ -535,6 +557,7 @@ public class Game : MonoBehaviourPunCallbacks
 			potions[3].SetActive(false);
 			playerNamesInGame[3].SetActive(false);
 			playerNamesInGame[3].GetComponent<Text>().text = "";
+			playerNames[3] = "";
 		}
 	}
 }
