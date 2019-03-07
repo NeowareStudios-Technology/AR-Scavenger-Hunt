@@ -61,6 +61,15 @@ public class Game : MonoBehaviourPunCallbacks
 		
 	}
 
+	void Update()
+	{	
+		AssignExistingPlayer();
+		AssignNewPlayer();
+		UpdateTimer();
+		CheckAndSetMasterClientStartButton();
+		
+	}
+
 	//we need a player prefab to play the game
 	private void CheckIfPlayerPrefabExists()
 	{
@@ -120,14 +129,7 @@ public class Game : MonoBehaviourPunCallbacks
 		ArePlayersReadyText.gameObject.SetActive(true);
 	}
 
-	void Update()
-	{	
-		AssignExistingPlayer();
-		AssignNewPlayer();
-		UpdateTimer();
-		CheckAndSetMasterClientStartButton();
-		
-	}
+	
 
 	//check if players already exist in room, if so set them
 	private void AssignExistingPlayer()
@@ -335,6 +337,7 @@ public class Game : MonoBehaviourPunCallbacks
 		}	
 				
 	}
+
 
     //handles setting the UI for the summary screen
 	public void SetSummaryScreenText()

@@ -53,6 +53,50 @@ public class ScavengerHuntAR : MonoBehaviour
     }
 
     private void SetHintText(){
+
+
+         //antlers
+        hints[0, 0] = "Stary Night painting in Alfonso's office";
+        hints[0, 1] = "";
+        hints[0, 2] = "";
+        //ashes
+        hints[1, 0] = "ViewStub Marketing and Design sign";
+        hints[1, 1] = "";
+        hints[1, 2] = "";
+        //dagger
+        hints[2, 0] = "Thor Poster in the Lobby";
+        hints[2, 1] = "";
+        hints[2, 2] = "";
+        //book
+        hints[3, 0] = "Caution: High Noise Area sign in the break room";
+        hints[3, 1] = "";
+        hints[3, 2] = "";
+        //egg        
+        hints[4, 0] = "Florida Heat Map near the restrooms";
+        hints[4, 1] = "";
+        hints[4, 2] = "";
+        //diamond
+        hints[5, 0] = "Moana poster in the game room";
+        hints[5, 1] = "";
+        hints[5, 2] = "";
+        //mortar pestle
+        hints[6, 0] = "Space Jam paster in the hallway";
+        hints[6, 1] = "";
+        hints[6, 2] = "";
+        //mushroom
+        hints[7, 0] = "Deadpool poster in the hallway";
+        hints[7, 1] = "";
+        hints[7, 2] = "";
+        //potion bottle
+        hints[8, 0] = "Octopus in Zack's office";
+        hints[8, 1] = "";
+        hints[8, 2] = "";
+        //snake venom
+        hints[9, 0] = "Stranger Things poster in the hallway";
+        hints[9, 1] = "";
+        hints[9, 2] = "";
+        
+        /*
         //antlers
         hints[0, 0] = "I am a trophy for some, but for others I can be the key ingredient with the right tools to crush me. You will find me in the large room where everyone meets, at the place where you stand and speak";
         hints[0, 1] = "";
@@ -93,6 +137,8 @@ public class ScavengerHuntAR : MonoBehaviour
         hints[9, 0] = "If I am removed from my host, he will become safe to the touch. I am in the lobby on the mini fridge, don't confuse me for a drink";
         hints[9, 1] = "";
         hints[9, 2] = "";
+        */
+
         /*
         //antlers
         hints[0,0] = "I am a trophy for some, but for others I can be the key ingredient with the right tools to crush me. (Insert line about where it is located in the real world)"; 

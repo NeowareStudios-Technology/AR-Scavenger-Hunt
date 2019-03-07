@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="StaryNight" size="1.000000 0.841129" />
+    <ImageTarget name="ViewStub" size="1.000000 0.841129" />
+    <ImageTarget name="Thor" size="1.000000 1.495156" />
+    <ImageTarget name="Caution" size="1.000000 1.495156" />
+    <ImageTarget name="FloridaHeatMap" size="1.000000 1.495156" />
+    <ImageTarget name="Moana" size="1.000000 1.495156" />
+    <ImageTarget name="SpaceJam" size="1.000000 1.495156" />
+    <ImageTarget name="Deadpool" size="1.000000 1.495156" />
+    <ImageTarget name="Octopus" size="1.000000 0.841129" />
+    <ImageTarget name="FLSA" size="1.000000 1.495156" />
+    <ImageTarget name="StrangerThings" size="1.000000 1.495156" />
+  </Tracking>
+</QCARConfig>
