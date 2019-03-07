@@ -366,7 +366,7 @@ public class Game : MonoBehaviourPunCallbacks
 	private IEnumerator WaitThenSetSummaryScreenText()
 	{
 
-		int tempHighScore = 0;
+		int tempHighScore = -1;
 		for (int i = 0; i < 4; i++)
 		{
 			
@@ -383,7 +383,7 @@ public class Game : MonoBehaviourPunCallbacks
 		}
 
 		//determine second place
-		tempHighScore = 0;
+		tempHighScore = -1;
 		for (int i = 0; i < 4; i++)
 		{
 			
@@ -398,7 +398,7 @@ public class Game : MonoBehaviourPunCallbacks
 			}
 		}
 		//determine third place
-		tempHighScore = 0;
+		tempHighScore = -1;
 		for (int i = 0; i < 4; i++)
 		{
 			
@@ -413,7 +413,7 @@ public class Game : MonoBehaviourPunCallbacks
 			}
 		}
 		//determine 4th place
-		tempHighScore = 0;
+		tempHighScore = -1;
 		for (int i = 0; i < 4; i++)
 		{
 			
