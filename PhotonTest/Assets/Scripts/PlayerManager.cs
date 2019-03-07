@@ -98,6 +98,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
         game.potions[playerUiIndex].GetComponent<Transform>().GetChild(0).GetComponent<Image>().fillAmount = (float)((localScore * 1.0f)/10.0f);
         game.playerScores[playerUiIndex] = localScore;
+        scavengerHuntAr.mainCanvas.GetComponent<HintPanelAnimatorController>().SetStateOfAnimator(true);
     }
             
     
@@ -187,7 +188,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private IEnumerator WaitThenSetHintPanelActive()
     {
-        yield return new WaitForSeconds(6.0f);
+        yield return new WaitForSeconds(9.0f);
         scavengerHuntAr.hintPanel.SetActive(true);
 
     }

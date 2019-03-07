@@ -26,4 +26,16 @@ public class HintPanelAnimatorController : MonoBehaviour
             } 
         }   
     }
+    public void SetStateOfAnimator(bool setOpen)
+    {
+        if (setOpen)
+        {
+            animator.SetBool("open", true);
+        }  
+            
+        else
+        {
+            animator.SetBool("open", false);
+        }    
+    }
 }

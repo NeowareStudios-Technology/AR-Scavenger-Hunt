@@ -15654,7 +15654,7 @@ MonoBehaviour:
   mAspectRatio: 0.841129
   mImageTargetType: 0
   mWidth: 1
-  mHeight: 0.75
+  mHeight: 0.841129
 --- !u!21 &495399915
 Material:
   serializedVersion: 6
@@ -15972,8 +15972,8 @@ RectTransform:
   - {fileID: 628020956}
   - {fileID: 1464885020}
   - {fileID: 1211928831}
-  - {fileID: 1090446663}
   - {fileID: 1912124406}
+  - {fileID: 1090446663}
   m_Father: {fileID: 1017148857}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22146,7 +22146,7 @@ MonoBehaviour:
   mAspectRatio: 0.75
   mImageTargetType: 0
   mWidth: 6
-  mHeight: 4.5000005
+  mHeight: 4.5
 --- !u!1 &759642772
 GameObject:
   m_ObjectHideFlags: 0
@@ -29476,7 +29476,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 516913841}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -30130,8 +30130,8 @@ MonoBehaviour:
   mDataSetPath: Vuforia/LargeOfficeDatabase.xml
   mAspectRatio: 1.58554
   mImageTargetType: 0
-  mWidth: 0.158554
-  mHeight: 0.1189155
+  mWidth: 0.1
+  mHeight: 0.158554
 --- !u!1 &1131273764
 GameObject:
   m_ObjectHideFlags: 0
@@ -58360,7 +58360,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 516913841}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
