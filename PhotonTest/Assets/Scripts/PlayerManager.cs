@@ -181,6 +181,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         //setting the win audio on here
         //turning off the win audio soon after when player hits the "Next" button on the win canvas
         audioReferences.gameplayTheme.SetActive(false);
+        audioReferences.storyTheme.SetActive(false);
         audioReferences.winAudio.SetActive(true);
     }
 
@@ -222,6 +223,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         game.timeStarted = true;
         game.gamestarted = true;
         PhotonNetwork.CurrentRoom.IsOpen = false;
+        audioReferences.storyTheme.SetActive(false);
+        audioReferences.gameplayTheme.SetActive(true);
+        
         //GameObject.Find("StartButton").SetActive(false);
         if (storyCanvas != null)
         {
@@ -230,15 +234,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         if (playerNamePanel != null)
         {
             playerNamePanel.SetActive(false);
-        }
-        
-        if (gameplayTheme != null)
-        {
-            gameplayTheme.SetActive(true);
-        }
-        if (gameplayTheme != null)
-        {
-            storyTheme.SetActive(false);
         }
         
     }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="LWABanner5" size="7.000000 5.250000" />
+    <ImageTarget name="LWABanner4" size="7.000000 5.250000" />
+    <ImageTarget name="LWABanner3" size="7.000000 5.250000" />
+    <ImageTarget name="LWABanner2" size="7.000000 5.250000" />
+    <ImageTarget name="LWABanner1" size="7.000000 5.250000" />
+    <ImageTarget name="PartyAnimalRoom5" size="3.000000 2.250000" />
+    <ImageTarget name="PartyAnimalRoom4" size="3.000000 2.250000" />
+    <ImageTarget name="PartyAnimalRoom3" size="3.000000 2.250000" />
+    <ImageTarget name="PartyAnimalRoom2" size="3.000000 2.250000" />
+    <ImageTarget name="PartyAnimalRoom1" size="3.000000 2.250000" />
+    <ImageTarget name="MarvelPoster5" size="3.000000 2.250000" />
+    <ImageTarget name="MarvelPoster4" size="2.000000 1.500000" />
+    <ImageTarget name="MarvelPoster3" size="4.000000 3.000000" />
+    <ImageTarget name="MarvelPoster2" size="4.000000 3.000000" />
+    <ImageTarget name="MarvelPoster1" size="2.000000 1.500000" />
+    <ImageTarget name="FireAlarm4" size="0.300000 0.225000" />
+    <ImageTarget name="FireAlarm3" size="0.300000 0.225000" />
+    <ImageTarget name="FireAlarm2" size="0.300000 0.225000" />
+    <ImageTarget name="firealarm1" size="0.100000 0.158554" />
+    <ImageTarget name="BobRossPoster5" size="6.000000 4.500000" />
+    <ImageTarget name="BobRossPoster4" size="5.000000 3.750000" />
+    <ImageTarget name="BobRossPoster3" size="4.000000 3.000000" />
+    <ImageTarget name="BobRossPoster2" size="5.000000 3.750000" />
+    <ImageTarget name="BobRossPoster1" size="4.000000 3.000000" />
+    <ImageTarget name="Cone5" size="5.000000 3.750000" />
+    <ImageTarget name="Cone4" size="5.000000 3.750000" />
+    <ImageTarget name="Cone3" size="5.000000 3.750000" />
+    <ImageTarget name="Cone2" size="5.000000 3.750000" />
+    <ImageTarget name="Cone1" size="5.000000 3.750000" />
+    <ImageTarget name="Fridge8" size="7.000000 5.250000" />
+    <ImageTarget name="Fridge7" size="7.000000 5.250000" />
+    <ImageTarget name="Fridge6" size="7.000000 5.250000" />
+    <ImageTarget name="Fridge5" size="7.000000 5.250000" />
+    <ImageTarget name="Fridge3" size="6.000000 4.500000" />
+    <ImageTarget name="Fridge1" size="6.000000 4.500000" />
+    <ImageTarget name="Tree7" size="5.000000 3.750000" />
+    <ImageTarget name="Tree6" size="5.000000 3.750000" />
+    <ImageTarget name="Tree5" size="7.000000 5.250000" />
+    <ImageTarget name="Tree3" size="7.000000 5.250000" />
+    <ImageTarget name="Tree4" size="7.000000 5.250000" />
+    <ImageTarget name="Tree2" size="7.000000 5.250000" />
+    <ImageTarget name="Tree1" size="8.000000 6.000000" />
+    <ImageTarget name="MiniFridge3" size="5.000000 3.750000" />
+    <ImageTarget name="MiniFridge2" size="5.000000 3.750000" />
+    <ImageTarget name="MiniFridge1" size="6.000000 4.500000" />
+    <ImageTarget name="FireExtinguisher4" size="3.000000 2.250000" />
+    <ImageTarget name="FireExtinguisher3" size="3.000000 2.250000" />
+    <ImageTarget name="FireExtinguisher2" size="3.000000 2.250000" />
+    <ImageTarget name="FireExtinguisher1" size="4.000000 3.000000" />
+    <ImageTarget name="Podium5" size="8.000000 6.000000" />
+    <ImageTarget name="Podium4" size="6.000000 4.500000" />
+    <ImageTarget name="Podium3" size="6.000000 4.500000" />
+    <ImageTarget name="Podium2" size="6.000000 4.500000" />
+    <ImageTarget name="Podium1" size="7.000000 5.250000" />
+  </Tracking>
+</QCARConfig>
