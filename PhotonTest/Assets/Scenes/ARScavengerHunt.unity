@@ -23305,7 +23305,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21700001, y: 0.3716667}
   m_AnchorMax: {x: 0.78700006, y: 0.79333335}
-  m_AnchoredPosition: {x: -11.279968, y: 51.699997}
+  m_AnchoredPosition: {x: -11.2799835, y: 51.699997}
   m_SizeDelta: {x: -337.44, y: -196.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &833803520
@@ -56901,7 +56901,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ebfb13b497ff1c34ca81c6406d6bd0d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 543e7eef8f94ed544b90f6b77bb68f2e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -60910,7 +60910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21700001, y: 0.3716667}
   m_AnchorMax: {x: 0.78700006, y: 0.79333335}
-  m_AnchoredPosition: {x: -11.279968, y: -36.940002}
+  m_AnchoredPosition: {x: -11.2799835, y: -36.940002}
   m_SizeDelta: {x: -337.44, y: -193.31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2075352890
@@ -62047,6 +62047,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2000379742}
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: d6554e3e33205e642a52c6766be9ddd1,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
