@@ -308,7 +308,6 @@ public class Game : MonoBehaviourPunCallbacks
 
 	public void IncrementScore()
 	{
-
 		PhotonView[] foundObjects = FindObjectsOfType<PhotonView>();
 
 		foreach (PhotonView x in foundObjects)
@@ -514,11 +513,23 @@ public class Game : MonoBehaviourPunCallbacks
 
 
 			if (GameObject.Find("player2") != null)
+			{
 				players[1].GetComponent<PlayerManager>().playerIndex --;
+				GameObject.Find("player2").name = "player1";
+			}
 			if (GameObject.Find("player3") != null)
+			{
 				players[2].GetComponent<PlayerManager>().playerIndex --;
+				GameObject.Find("player3").name = "player2";
+			}
+				
+				
 			if (GameObject.Find("player4") != null)
+			{
 				players[3].GetComponent<PlayerManager>().playerIndex --;
+				GameObject.Find("player4").name = "player3";
+			}
+				
 		}
 		if (GameObject.Find("player2") == null)
 		{
@@ -531,9 +542,15 @@ public class Game : MonoBehaviourPunCallbacks
 			playerNames[1] = "";
 
 			if (GameObject.Find("player3") != null)
+			{
 				players[2].GetComponent<PlayerManager>().playerIndex --;
+				GameObject.Find("player3").name = "player2";
+			}
 			if (GameObject.Find("player4") != null)
+			{
 				players[3].GetComponent<PlayerManager>().playerIndex --;
+				GameObject.Find("player4").name = "player3";
+			}
 		}
 		if (GameObject.Find("player3") == null)
 		{
@@ -546,7 +563,11 @@ public class Game : MonoBehaviourPunCallbacks
 			playerNames[2] = "";
 
 			if (GameObject.Find("player4") != null)
+			{
 				players[3].GetComponent<PlayerManager>().playerIndex --;
+				GameObject.Find("player4").name = "player3";
+			}
+				
 			
 		}
 		if (GameObject.Find("player4") == null)
