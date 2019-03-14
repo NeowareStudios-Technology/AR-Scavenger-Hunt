@@ -84,7 +84,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         uIReferences.playerNamePanel.SetActive(true);
         uIReferences.leaveCanvas.SetActive(false);
         uIReferences.helpCanvas.SetActive(false);
-        uIReferences.instructionsCanvas.SetActive(true);
+        
     }
 
     [PunRPC]
@@ -159,14 +159,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             
             if (!playerManager.isReady)
             {
-                Debug.Log("this many player manager are not ready!");
-                uIReferences.arePlayersReadyText.text = "Not all players are ready!";
+                game.SetPlayerReadyText(false);
                 return;
             }
             else
             {
-                Debug.Log("this many player manager are ready");
-                uIReferences.arePlayersReadyText.text = "All players are ready!";
+                game.SetPlayerReadyText(true);
             }
         }
     }

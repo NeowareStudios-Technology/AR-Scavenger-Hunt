@@ -48,7 +48,7 @@ public class Game : MonoBehaviourPunCallbacks
 	
 	void Start()
 	{	
-		CheckIfPlayerPrefabExists();
+		LoadPlayerPrefab();
 		SetActivePlayerReadyText();
 		SetTimeToZero();
 	}
@@ -61,7 +61,7 @@ public class Game : MonoBehaviourPunCallbacks
 	}
 
 	//we need a player prefab to play the game
-	private void CheckIfPlayerPrefabExists()
+	private void LoadPlayerPrefab()
 	{
 		if (playerPrefab == null)
 		{

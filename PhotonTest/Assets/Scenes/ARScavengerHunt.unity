@@ -18064,7 +18064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -25788,7 +25788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &809095271
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26201,7 +26201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21700001, y: 0.3716667}
   m_AnchorMax: {x: 0.78700006, y: 0.79333335}
-  m_AnchoredPosition: {x: -11.279968, y: 51.699997}
+  m_AnchoredPosition: {x: -11.2799835, y: 51.699997}
   m_SizeDelta: {x: -337.44, y: -196.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &833803520
@@ -30735,7 +30735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -33731,7 +33731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -34970,30 +34970,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c05e25a6a82854781aa44b1b3c85d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arHints:
-  - 'I am a trophy for some, but for others I can be the key ingredient with the right
-    tools to crush me. (Insert line about where it is located in the real world) '
-  - 'From fire I am born. When touched I turn your fingers silvery, grey. (Insert
-    line about where it is located in the real world) '
-  - I have a hilt to hold and sharp edges for you to cut what you will need (Insert
-    line about where it is located in the real world)
-  - I have no voice and yet I speak to you, I tell of all things in the world that
-    people do. I have a spine and hinges, but I am not a man or a door. (Insert line
-    about where it is located in the real world)
-  - 'I cannot be used untilI am broken. (Insert line about where it is located in
-    the real world). '
-  - "Sometimes called a rock, but I am often worth a great deal. A bauble or a precious
-    stone, so tempting for some to steal.\_(Insert line about where it is located
-    in the real world) "
-  - 'Separate I am useless but together I can crush ingredients into powder. (Insert
-    line about where it is located in the real world) '
-  - "I am a type of room you cannot enter or leave. Raised from the ground below,
-    I could be poisonous or a delicious treat.\_(Insert line about where it is located
-    in the real world) "
-  - 'You will need to use me to contain the strength to put the dragon into his slumber
-    (Insert line about where it is located in the real world) '
-  - If I am removed from my host, he will become safe to the touch. (Insert line about
-    where it is located in the real world)
   arModels:
   - {fileID: 1036677388}
   - {fileID: 1287037401}
@@ -61749,7 +61725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -62931,7 +62907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -67654,7 +67630,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21700001, y: 0.3716667}
   m_AnchorMax: {x: 0.78700006, y: 0.79333335}
-  m_AnchoredPosition: {x: -11.279968, y: -36.940002}
+  m_AnchoredPosition: {x: -11.2799835, y: -36.940002}
   m_SizeDelta: {x: -337.44, y: -193.31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2075352890
