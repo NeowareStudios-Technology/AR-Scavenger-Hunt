@@ -485,24 +485,31 @@ public class Game : MonoBehaviourPunCallbacks
 			playerNamesInGame[0].SetActive(false);
 			playerNamesInGame[0].GetComponent<Text>().text = "";
 			playerNames[0] = "";
+			playerScores[0] = 0;
 
 
 			if (GameObject.Find("player2") != null)
 			{
 				players[1].GetComponent<PlayerManager>().playerIndex --;
+				players[1].GetComponent<PlayerManager>().playerUiIndex--;
 				GameObject.Find("player2").name = "player1";
+				playerScores[0] = playerScores[1];
 			}
 			if (GameObject.Find("player3") != null)
 			{
 				players[2].GetComponent<PlayerManager>().playerIndex --;
+				players[2].GetComponent<PlayerManager>().playerUiIndex--;
 				GameObject.Find("player3").name = "player2";
+				playerScores[1] = playerScores[2];
 			}
 				
 				
 			if (GameObject.Find("player4") != null)
 			{
 				players[3].GetComponent<PlayerManager>().playerIndex --;
+				players[3].GetComponent<PlayerManager>().playerUiIndex--;
 				GameObject.Find("player4").name = "player3";
+				playerScores[2] = playerScores[3];
 			}
 				
 		}
@@ -515,16 +522,21 @@ public class Game : MonoBehaviourPunCallbacks
 			playerNamesInGame[1].SetActive(false);
 			playerNamesInGame[1].GetComponent<Text>().text = "";
 			playerNames[1] = "";
+			playerScores[1] = 0;
 
 			if (GameObject.Find("player3") != null)
 			{
 				players[2].GetComponent<PlayerManager>().playerIndex --;
+				players[2].GetComponent<PlayerManager>().playerUiIndex--;
 				GameObject.Find("player3").name = "player2";
+				playerScores[1] = playerScores[2];
 			}
 			if (GameObject.Find("player4") != null)
 			{
 				players[3].GetComponent<PlayerManager>().playerIndex --;
+				players[3].GetComponent<PlayerManager>().playerUiIndex--;
 				GameObject.Find("player4").name = "player3";
+				playerScores[2] = playerScores[3];
 			}
 		}
 		if (GameObject.Find("player3") == null)
@@ -536,11 +548,15 @@ public class Game : MonoBehaviourPunCallbacks
 			playerNamesInGame[2].SetActive(false);
 			playerNamesInGame[2].GetComponent<Text>().text = "";
 			playerNames[2] = "";
+			playerScores[2] = 0;
 
 			if (GameObject.Find("player4") != null)
 			{
 				players[3].GetComponent<PlayerManager>().playerIndex --;
+				players[3].GetComponent<PlayerManager>().playerUiIndex--;
 				GameObject.Find("player4").name = "player3";
+				playerScores[2] = playerScores[3];
+				
 			}
 				
 			
@@ -554,6 +570,12 @@ public class Game : MonoBehaviourPunCallbacks
 			playerNamesInGame[3].SetActive(false);
 			playerNamesInGame[3].GetComponent<Text>().text = "";
 			playerNames[3] = "";
+			playerScores[3] = 0;
 		}
+		PlayerManager playerManager = FindObjectOfType<PlayerManager>();
+		playerManager.gameObject.GetComponent<PhotonView>().RPC("SetScores", RpcTarget.All);
+
 	}
+
+	
 }

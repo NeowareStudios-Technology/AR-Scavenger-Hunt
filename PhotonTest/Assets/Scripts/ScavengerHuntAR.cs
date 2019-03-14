@@ -252,6 +252,8 @@ public class ScavengerHuntAR : MonoBehaviour
         //enable the ability to toggle the panel
         uIReferences.mainCanvas.GetComponent<HintPanelAnimatorController>().canToggle = true;
 
+        uIReferences.mainCanvas.GetComponent<HintPanelAnimatorController>().SetStateOfAnimator(true);
+
         //enable the ability to use the hint button again
         uIReferences.hintButton.GetComponent<Button>().enabled = true;
         

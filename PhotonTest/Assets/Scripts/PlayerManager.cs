@@ -104,9 +104,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
         game.potions[playerUiIndex].GetComponent<Transform>().GetChild(0).GetComponent<Image>().fillAmount = (float)((localScore * 1.0f)/10.0f);
         game.playerScores[playerUiIndex] = localScore;
-        uIReferences.mainCanvas.GetComponent<HintPanelAnimatorController>().SetStateOfAnimator(true);
+        //uIReferences.mainCanvas.GetComponent<HintPanelAnimatorController>().SetStateOfAnimator(true);
     }
-            
+
+    [PunRPC]  
+    public void SetScores()
+    {
+        game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
+        game.potions[playerUiIndex].GetComponent<Transform>().GetChild(0).GetComponent<Image>().fillAmount = (float)((localScore * 1.0f)/10.0f);
+        game.playerScores[playerUiIndex] = localScore;
+    }
     
     [PunRPC]
     public void SetPlayerUi()
