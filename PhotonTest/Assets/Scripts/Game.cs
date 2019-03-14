@@ -10,10 +10,11 @@ using System.Collections.Generic;
 public class Game : MonoBehaviourPunCallbacks
 {
 	//player related
+
+	//We load this prefab from the resources folder
 	public GameObject playerPrefab;
 	public GameObject[] players = new GameObject[] {null, null, null, null};
 	public GameObject[] playerInfo = new GameObject[4];
-	
 	public GameObject[] playerNamesInGame = new GameObject[4];
 	public GameObject[] potions = new GameObject[4];
 	public bool[] playerCheck = new bool[] {false, false, false, false};
@@ -34,60 +35,48 @@ public class Game : MonoBehaviourPunCallbacks
 	public bool timeStarted = false;
 	int minutes;
 	int seconds;
-	string niceTime;
 	private DateTime startingDateTime;
-	public GameObject timeSummaryScreen;
 
-	//UI related
-	public Text ArePlayersReadyText;
-	public GameObject startButton;
-	public Text timerUi;
+	//UI references
+	public UIReferences uIReferences;
 
-	//used by update function
+	//used to set the new player to the players array
 	GameObject newPlayer;
 
 	//used to determine if start button should be enabled
 	public bool gamestarted = false;
-
-	//used for win animation
-	public GameObject potionEndAnimation;
-	public GameObject modelHolder;
-
 	
 	void Start()
 	{	
 		CheckIfPlayerPrefabExists();
-		CheckAndSetMasterClientStartButton();
 		SetActivePlayerReadyText();
 		SetTimeToZero();
-		
 	}
 
 	void Update()
 	{	
 		AssignExistingPlayer();
 		AssignNewPlayer();
-		UpdateTimer();
-		CheckAndSetMasterClientStartButton();
-		
+		UpdateTimer();		
 	}
 
 	//we need a player prefab to play the game
 	private void CheckIfPlayerPrefabExists()
 	{
-		if (playerPrefab == null){
-				playerPrefab = (GameObject)Resources.Load("Player", typeof(GameObject));
-				Debug.Log("why the player null tho");
-			}
 		if (playerPrefab == null)
 		{
-			Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'",this);
+			playerPrefab = (GameObject)Resources.Load("Player", typeof(GameObject));
+		}
+
+		//if we can't load the player prefab from the resources folder this will catch.
+		if (playerPrefab == null)
+		{
+			Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference missing'",this);
 		}
 		else
 		{
 			Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
 			// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-			//PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
 			StartCoroutine("DelayedPlayerInstantiate");	
 		}
 	}
@@ -109,30 +98,16 @@ public class Game : MonoBehaviourPunCallbacks
 
 	private void InstantiatePlayer()
 	{
-			
-			GameObject GO = PhotonNetwork.Instantiate("Player", new Vector3(0f,0f,0f), Quaternion.identity, 0);
+		PhotonNetwork.Instantiate("Player", new Vector3(0f,0f,0f), Quaternion.identity, 0);
 	}
 
-	//checks if this client is the master client and changes UI accordingly
-	private void CheckAndSetMasterClientStartButton()
-	{
-		if (!gamestarted)
-		{
-			if (PhotonNetwork.IsMasterClient)
-			{	
-				startButton.SetActive(true);
-			}
-		}
-		
-	}
 
 	private void SetActivePlayerReadyText()
 	{
-		ArePlayersReadyText.gameObject.SetActive(true);
+		uIReferences.arePlayersReadyText.gameObject.SetActive(true);
 	}
 
 	
-
 	//check if players already exist in room, if so set them
 	private void AssignExistingPlayer()
 	{
@@ -282,19 +257,21 @@ public class Game : MonoBehaviourPunCallbacks
 		{		
 			System.TimeSpan timeDifference = DateTime.Now.Subtract(startingDateTime);
 			string output = string.Format("{0}:{1:00}", (int)timeDifference.TotalMinutes, timeDifference.Seconds);
-			timerUi.text = output;
+			uIReferences.timerUi.text = output;
+			
 		}       
 		
 	}
 
+	//sets the time it took to complete the scavenger hunt on the summary screen
 	public void SetSummaryScreenTime()
 	{
 		System.TimeSpan timeDifference = DateTime.Now.Subtract(startingDateTime);
 		string output = string.Format("{0}:{1:00}", (int)timeDifference.TotalMinutes, timeDifference.Seconds);
-		timeSummaryScreen.GetComponent<Text>().text = output;
+		uIReferences.timeSummaryScreen.GetComponent<Text>().text = output;
 	}
 
-
+	//Photon Callback when a player joins the room.
 	public override void OnPlayerEnteredRoom(Player other)
 	{
 		Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
@@ -302,54 +279,53 @@ public class Game : MonoBehaviourPunCallbacks
 		{
 			Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
 		}
+
 		StartCoroutine(DelayedSetPlayerReadyText());
 	}
 
 
+	//The player who scored (photonView.IsMine) calls "IncrementScore" on All PlayerManagers in the game.
 	public void IncrementScore()
 	{
-		PhotonView[] foundObjects = FindObjectsOfType<PhotonView>();
+		PhotonView[] PhotonViews = FindObjectsOfType<PhotonView>();
 
-		foreach (PhotonView x in foundObjects)
+		foreach (PhotonView photonView in PhotonViews)
 		{
-			if (x.IsMine)
+			if (photonView.IsMine)
 			{
-				x.RPC("ButtonClicked", RpcTarget.All);
+				photonView.RPC("IncrementScore", RpcTarget.All);
 			}
 		}
 	}
 
 	public void StartIfAllPlayersAreReady()
 	{
-		PlayerManager[] foundObjects = FindObjectsOfType<PlayerManager>();
+		PlayerManager[] playerManagers = FindObjectsOfType<PlayerManager>();
 
-		foreach (PlayerManager pms in foundObjects){
-
-				if (!pms.isReady){
-
-					SetPlayerReadyText(false);	
-					return;
-
-				}
-				else{
-
-					SetPlayerReadyText(true);
-					pms.gameObject.GetComponent<PhotonView>().RPC("StartButtonClicked", RpcTarget.All);
-
-				}
+		foreach (PlayerManager playerManager in playerManagers)
+		{
+			if (!playerManager.isReady)
+			{
+				SetPlayerReadyText(false);	
+				return;
+			}
+			else
+			{
+				SetPlayerReadyText(true);
+				playerManager.gameObject.GetComponent<PhotonView>().RPC("StartButtonClicked", RpcTarget.All);
 			}
 		}
+	}
 
 	public void SetPlayerReadyText(bool playersReady)
 	{
-		
 		if (playersReady)
 		{
-			ArePlayersReadyText.text = "All players are ready!";
+			uIReferences.arePlayersReadyText.text = "All players are ready!";
 		}
 		else
 		{
-			ArePlayersReadyText.text = "Not all players are ready!";
+			uIReferences.arePlayersReadyText.text = "Not all players are ready!";
 		}	
 				
 	}
@@ -359,12 +335,11 @@ public class Game : MonoBehaviourPunCallbacks
 	public void SetSummaryScreenText()
 	{
 		StartCoroutine(WaitThenSetSummaryScreenText());
-		
 	}
 
 	private IEnumerator WaitThenSetSummaryScreenText()
 	{
-
+		//determine player with highest score
 		int tempHighScore = -1;
 		for (int i = 0; i < 4; i++)
 		{

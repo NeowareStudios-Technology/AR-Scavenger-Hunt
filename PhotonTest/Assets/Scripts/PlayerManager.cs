@@ -13,7 +13,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     //Number of clues found by player
     public int localScore = 0;
 
-
     public int playerIndex;
     public int playerUiIndex;
 
@@ -25,23 +24,23 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private PlayerManager[] playerManagers = new PlayerManager[4];
 
-    //public GameObject endGameDragonAnimation;
-    private GameObject winnerText;
-    private GameObject winCanvas;
+    
+
     private bool canFindClues = true;
-    private GameObject storyCanvas;
+
     private GameObject playerNamePanel;
 
     //audio references
     private AudioReferences audioReferences;
-    public GameObject gameplayTheme;
-    public GameObject storyTheme;
-    public DragonAmbience dragonAmbiance;
+
+    //UI references
+    private UIReferences uIReferences;
 
     //hint panel reference
     ScavengerHuntAR scavengerHuntAr;
 
-    // used as Observed component in a PhotonView, this only reads/writes the position
+
+    //Photon (IPunObservable), reads and writes the streamable variable so all clients are updated.
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -56,41 +55,48 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     void Start()
     {
-        audioReferences = GameObject.Find("AudioReferences").GetComponent<AudioReferences>();
-        game =  GameObject.Find("GameManager").GetComponent<Game>();
-        scavengerHuntAr = GameObject.FindObjectOfType<ScavengerHuntAR>();
-        //winnerText.SetActive(false);
-        //endGameDragonAnimation = GameObject.Find("Antler");
-        //endGameDragonAnimation.SetActive(false);
-        gameplayTheme = GameObject.Find("GameplayTheme");
-        if (gameplayTheme != null)
-        {
-            gameplayTheme.SetActive(false);
-        }
-        playerNamePanel = GameObject.Find("PlayerNamePanel");
-        storyTheme = GameObject.Find("StoryTheme");
-        winnerText = scavengerHuntAr.winnerText;
-        winCanvas = scavengerHuntAr.winCanvas;
-        if (winCanvas != null)
-        {
-            winCanvas.SetActive(false);
-        }
-        storyCanvas = GameObject.Find("StoryandReadyCanvas");
-        dragonAmbiance = GameObject.Find("DragonAmbience").GetComponent<DragonAmbience>();
+        CacheGameObjects();
+        SetUIElementsForStart();
+        audioReferences.gameplayTheme.SetActive(false);
+        
     }
 
-    
+    private void CacheGameObjects()
+    {
+        audioReferences = GameObject.Find("AudioReferences").GetComponent<AudioReferences>();
+        game =  GameObject.Find("GameManager").GetComponent<Game>();
+        scavengerHuntAr = FindObjectOfType<ScavengerHuntAR>();
+        uIReferences = FindObjectOfType<UIReferences>();
+    }
+
+    //This ensures the correct UI is activated on start in case some UI element is left on or off during development
+    private void SetUIElementsForStart()
+    {
+        uIReferences.potionsAndPlayerNameCanvas.SetActive(true);
+        uIReferences.quitButton.SetActive(true);
+        uIReferences.helpButton.SetActive(true);
+        uIReferences.hintPanel.SetActive(true);
+        uIReferences.hintButton.SetActive(false);
+        uIReferences.toggleHintButton.SetActive(true);
+        uIReferences.winCanvas.SetActive(false);
+        uIReferences.summaryCanvas.SetActive(false);
+        uIReferences.storyCanvas.SetActive(true);
+        uIReferences.playerNamePanel.SetActive(true);
+        uIReferences.leaveCanvas.SetActive(false);
+        uIReferences.helpCanvas.SetActive(false);
+        uIReferences.instructionsCanvas.SetActive(true);
+    }
+
     [PunRPC]
-    public void ButtonClicked()
+    public void IncrementScore()
     {
         if (canFindClues)
         {
-            localScore++;
-            
-            dragonAmbiance.PlayRandomClip(localScore);
+            localScore++;      
+            audioReferences.dragonAmbience.PlayRandomClip(localScore);
         }
 
-        if (localScore >= 10)
+        if (localScore >= scavengerHuntAr.maxTargets)
         {
             StartCoroutine(EndGame());
         }
@@ -98,7 +104,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         game.playerInfo[playerUiIndex].GetComponent<Text>().text = playerName + " has "+localScore+" points";
         game.potions[playerUiIndex].GetComponent<Transform>().GetChild(0).GetComponent<Image>().fillAmount = (float)((localScore * 1.0f)/10.0f);
         game.playerScores[playerUiIndex] = localScore;
-        scavengerHuntAr.mainCanvas.GetComponent<HintPanelAnimatorController>().SetStateOfAnimator(true);
+        uIReferences.mainCanvas.GetComponent<HintPanelAnimatorController>().SetStateOfAnimator(true);
     }
             
     
@@ -154,13 +160,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             if (!playerManager.isReady)
             {
                 Debug.Log("this many player manager are not ready!");
-                game.ArePlayersReadyText.text = "Not all players are ready!";
+                uIReferences.arePlayersReadyText.text = "Not all players are ready!";
                 return;
             }
             else
             {
                 Debug.Log("this many player manager are ready");
-                game.ArePlayersReadyText.text = "All players are ready!";
+                uIReferences.arePlayersReadyText.text = "All players are ready!";
             }
         }
     }
@@ -172,26 +178,20 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         
         game.SetSummaryScreenTime();
-        scavengerHuntAr.hintPanel.SetActive(false);
-        winnerText.GetComponent<Text>().text = playerName + " has made the hero’s brew! The dragon has been put into a deep slumber.";
+        uIReferences.hintPanel.SetActive(false);
+        uIReferences.winnerText.GetComponent<Text>().text = playerName + " has made the hero’s brew! The dragon has been put into a deep slumber.";
         game.SetSummaryScreenText();
 
         yield return new WaitForSeconds(8.0f);
-        winCanvas.SetActive(true);
+        uIReferences.winCanvas.SetActive(true);
 
         //setting the win audio on here
-        //turning off the win audio soon after when player hits the "Next" button on the win canvas
+        //turning off the win audio with a delegate on the "Next" button on the win canvas
         audioReferences.gameplayTheme.SetActive(false);
         audioReferences.storyTheme.SetActive(false);
         audioReferences.winAudio.SetActive(true);
     }
 
-    private IEnumerator WaitThenSetHintPanelActive()
-    {
-        yield return new WaitForSeconds(9.0f);
-        scavengerHuntAr.hintPanel.SetActive(true);
-
-    }
     public void SetPlayerNameUI()
     {
                 
@@ -220,22 +220,19 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private void StartGame()
     {
 
-        
         game.timeStarted = true;
         game.gamestarted = true;
+
+        //closes the room so no more players can join once the game has been started
         PhotonNetwork.CurrentRoom.IsOpen = false;
+
+        //switches audio to gameplayTheme
         audioReferences.storyTheme.SetActive(false);
         audioReferences.gameplayTheme.SetActive(true);
         
-        //GameObject.Find("StartButton").SetActive(false);
-        if (storyCanvas != null)
-        {
-            storyCanvas.SetActive(false);
-        }
-        if (playerNamePanel != null)
-        {
-            playerNamePanel.SetActive(false);
-        }
+        //turns off the storyCanvas, camera view is now visible
+        uIReferences.storyCanvas.SetActive(false);
+        uIReferences.playerNamePanel.SetActive(false);
         
     }
 }

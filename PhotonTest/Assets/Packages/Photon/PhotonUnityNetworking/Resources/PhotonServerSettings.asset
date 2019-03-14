@@ -40,5 +40,6 @@ MonoBehaviour:
   - SetPlayerReady
   - SetPlayerUi
   - SetUiIfPlayersAreReady
+  - IncrementScore
   DisableAutoOpenWizard: 1
   ShowSettings: 1

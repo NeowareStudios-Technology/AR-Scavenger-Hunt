@@ -9,5 +9,6 @@ public class AudioReferences : MonoBehaviour
     public GameObject storyTheme;
     public GameObject summaryAudio;
     public GameObject winAudio;
+    public DragonAmbience dragonAmbience;
 
 }

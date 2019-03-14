@@ -12,22 +12,16 @@ using UnityEngine.UI;
 
 public class ScavengerHuntAR : MonoBehaviour
 {
-    public GameObject map;
-    public GameObject[] arMarkers;
-    public string[] arHints;
+    //2d array of hints, First layer are the objects. Second layer are the hints.
     private string [,]hints = new string[10,3];
     public GameObject[] arModels;
-    public string shComplete = "Thank you for playing!";
-    public Text hintText;
     public int arIndex ;
     public int maxTargets = 10;
     public Game game;
-    public GameObject hintPanel;
-    public GameObject hintButton;
-    public GameObject mainCanvas;
     public modelAnimationController mainCamera;
-    public GameObject winCanvas;
-    public GameObject winnerText;
+    
+    //UI references
+    public UIReferences uIReferences;
 
     //keeps track of unlocked targets
     public List<int> unlockedTargets = new List<int>();
@@ -37,20 +31,16 @@ public class ScavengerHuntAR : MonoBehaviour
     {
         SetHintText();
         
+        //determine a random index to start from
         Random.seed = (int)System.DateTime.Now.Ticks; 
         arIndex = Random.Range(0,maxTargets);
-        unlockedTargets.Add(arIndex);
-        //Set initial ar hint to the current index, 0
-        //hintText.text = arHints[arIndex];
-        do 
-        {
-            hintText.text = hints[arIndex, Random.Range(0,3)];
-        } while (hintText.text == "");
-        Debug.Log("hints length is "+ hints.GetLength(0));
-        Debug.Log("hints[0] legth is " + hints.GetLength(1));
 
+        unlockedTargets.Add(arIndex);
+ 
+        PickRandomHint();
         
     }
+
 
     private void SetHintText(){
 
@@ -182,18 +172,18 @@ public class ScavengerHuntAR : MonoBehaviour
         hints[9,2] = "";
         */
     }
+
     //randomly unlock next target
     public void UnlockNextTarget()
     {
-        //Win Condition
-        //if UnlockedTargets list size is greater or equal to max hints
+        
         game.IncrementScore();
+
+        //Win Condition : if UnlockedTargets list size is greater or equal to max hints
+        //Note: Win Condition is handled in the Player Manger within "IncrementScore" 
         if ( unlockedTargets.Count == maxTargets)
-        {
-            //reset unlockedTargets list
-            //unlockedTargets.Clear();
-            //Set hint text to complete text, go away
-            //hintText.text = shComplete;
+        {   
+            //spawn the last object then return.
             StartCoroutine(SpawnFoundObject(arIndex));
             return;
         }
@@ -201,50 +191,69 @@ public class ScavengerHuntAR : MonoBehaviour
         
         //randomly get index of next target to hunt
         int randomSelection = Random.Range(0,maxTargets);
+
         //ensure that the target is not already unlocked
         while (unlockedTargets.Contains(randomSelection) == true)
         {
             randomSelection = Random.Range(0,maxTargets);
         }
 
+        //spawn the model for the player to see
         StartCoroutine(SpawnFoundObject(arIndex));
 
         //save the target index in the unlockedTargets list
         unlockedTargets.Add(randomSelection);
         arIndex = randomSelection;
-
-        //Else just update the hint text
-        //hintText.text = arHints[arIndex];
-        do 
-        {
-            hintText.text = hints[arIndex, Random.Range(0,3)];
-        } while (hintText.text == "");
-       
+        
+        PickRandomHint();
+         
     }
 
-    private IEnumerator SpawnFoundObject(int paramArIndex){
+
+    //Find a random hint, between index 0 and 2. if index has an empty hint, find another
+    private void PickRandomHint()
+    {
+        do 
+        {
+            uIReferences.hintText.text = hints[arIndex, Random.Range(0,3)];
+        } while (uIReferences.hintText.text == "");
+    }
+
+    private IEnumerator SpawnFoundObject(int paramArIndex)
+    {
         //turn off the hint panel
-        hintPanel.SetActive(false);
+        uIReferences.hintPanel.SetActive(false);
+
         //turn off the panels ability to turn on for the duration of showing the model
-        mainCanvas.GetComponent<HintPanelAnimatorController>().canToggle = false;
+        uIReferences.mainCanvas.GetComponent<HintPanelAnimatorController>().canToggle = false;
+
         //ensuring no usage of hint button
-        hintButton.GetComponent<Button>().enabled = false;
+        uIReferences.hintButton.GetComponent<Button>().enabled = false;
+
         //set the found model active
         arModels[paramArIndex].SetActive(true);
+
         //enable rising animation for model
         mainCamera.ChangeStateOfAnimator();
+
         yield return new WaitForSeconds(6.0f);
+
         //enable fall animation for model
         mainCamera.ChangeStateOfAnimator();
+
         yield return new WaitForSeconds(2.0f);
+
         //turn off model
         arModels[paramArIndex].SetActive(false);
+
         //enable the hint panel
-        hintPanel.SetActive(true);
+        uIReferences.hintPanel.SetActive(true);
+
         //enable the ability to toggle the panel
-        mainCanvas.GetComponent<HintPanelAnimatorController>().canToggle = true;
+        uIReferences.mainCanvas.GetComponent<HintPanelAnimatorController>().canToggle = true;
+
         //enable the ability to use the hint button again
-        hintButton.GetComponent<Button>().enabled = true;
+        uIReferences.hintButton.GetComponent<Button>().enabled = true;
         
     }
 }
